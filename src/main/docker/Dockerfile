@@ -16,7 +16,7 @@
 
 FROM rh7-artifactory.svs.hpeswlab.net:8444/base-images/opensuse-java:20171010
 
-ADD apache-tomcat-8.5.23.tar.gz /usr/share
+ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz /usr/share
 
 WORKDIR /usr/share/
 

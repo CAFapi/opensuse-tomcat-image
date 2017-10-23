@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM cafinternal/prereleases:opensuse-jre8-1.0.0-SNAPSHOT
+FROM cafapi/opensuse-jre8:1.0
 
 ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz /usr/share
 

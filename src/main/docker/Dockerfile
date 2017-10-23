@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM rh7-artifactory.svs.hpeswlab.net:8444/base-images/opensuse-java:20171010
+FROM cafinternal/prereleases:opensuse-jre8-1.0.0-SNAPSHOT
 
 ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz /usr/share
 

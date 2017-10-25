@@ -18,7 +18,7 @@
 # Preliminary image that downloads Tomcat and makes some modifications
 #
 FROM opensuse:latest AS builder
-RUN zypper -n install tar
+RUN zypper -n install tar xsltproc
 WORKDIR /usr/share/
 ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz .
 RUN tar xzf apache-tomcat-8.5.23.tar.gz
@@ -29,6 +29,11 @@ RUN rm -rf webapps/docs/ webapps/examples/ webapps/host-manager/ webapps/manager
 # (It is being copied to a temporary folder first, and then overwritten using cp, in order to retain the original file's permissions.)
 COPY logging.properties /tmp/tomcat/conf/
 RUN cp /tmp/tomcat/conf/logging.properties conf/
+
+# Apply the specified transform to the server.xml file
+COPY server.xslt /tmp/tomcat/conf/
+RUN cp conf/server.xml /tmp/tomcat/conf/
+RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/server.xml
 
 #
 # The actual image definition

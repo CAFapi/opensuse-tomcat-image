@@ -14,20 +14,30 @@
 # limitations under the License.
 #
 
+#
+# Preliminary image that downloads Tomcat and makes some modifications
+#
+FROM opensuse:latest AS builder
+RUN zypper -n install tar
+WORKDIR /usr/share/
+ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz .
+RUN tar xzf apache-tomcat-8.5.23.tar.gz
+WORKDIR apache-tomcat-8.5.23/webapps/
+RUN rm -rf docs/ examples/ host-manager/ manager/
+
+#
+# The actual image definition
+#
 FROM cafapi/opensuse-jre8:1.0
 
-ADD apache-tomcat-8.5.23.tar.gz /usr/share
+COPY --from=builder /usr/share/apache-tomcat-8.5.23/ /usr/share/apache-tomcat-8.5.23/
 
 WORKDIR /usr/share/
 
 RUN ln -s apache-tomcat-8.5.23 tomcat && \
     groupadd tomcat && \
     useradd -s /bin/bash -g tomcat tomcat && \
-    chown -Rf tomcat.tomcat /usr/share/tomcat && \
-    rm -rf /usr/share/tomcat/webapps/manager  && \
-    rm -rf /usr/share/tomcat/webapps/docs && \
-    rm -rf /usr/share/tomcat/webapps/examples && \
-    rm -rf /usr/share/tomcat/webapps/host-manager
+    chown -Rf tomcat.tomcat /usr/share/tomcat
 
 # Tag the image
 ARG BUILD_NUMBER

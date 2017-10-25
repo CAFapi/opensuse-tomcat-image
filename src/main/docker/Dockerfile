@@ -25,6 +25,11 @@ RUN tar xzf apache-tomcat-8.5.23.tar.gz
 WORKDIR apache-tomcat-8.5.23/
 RUN rm -rf webapps/docs/ webapps/examples/ webapps/host-manager/ webapps/manager/
 
+# Overwrite the main logging configuration file
+# (It is being copied to a temporary folder first, and then overwritten using cp, in order to retain the original file's permissions.)
+COPY logging.properties /tmp/tomcat/conf/
+RUN cp /tmp/tomcat/conf/logging.properties conf/
+
 #
 # The actual image definition
 #

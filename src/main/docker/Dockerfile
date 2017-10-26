@@ -17,7 +17,7 @@
 #
 # Preliminary image that downloads Tomcat and makes some modifications
 #
-FROM opensuse:latest AS builder
+FROM opensuse:42.3 AS builder
 RUN zypper -n install tar xsltproc
 WORKDIR /usr/share/
 ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz .

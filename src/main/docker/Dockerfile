@@ -20,7 +20,7 @@
 FROM opensuse:latest AS builder
 RUN zypper -n install tar xsltproc
 WORKDIR /usr/share/
-ADD http://apache.mirrors.lucidnetworks.net/tomcat/tomcat-8/v8.5.23/bin/apache-tomcat-8.5.23.tar.gz .
+COPY apache-tomcat-8.5.23.tar.gz .
 RUN tar xzf apache-tomcat-8.5.23.tar.gz
 WORKDIR apache-tomcat-8.5.23/
 RUN rm -rf webapps/docs/ webapps/examples/ webapps/host-manager/ webapps/manager/

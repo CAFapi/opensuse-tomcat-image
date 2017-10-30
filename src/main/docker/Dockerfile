@@ -40,14 +40,9 @@ RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/se
 #
 FROM cafapi/opensuse-jre8:1.0
 
-COPY --from=builder /usr/share/apache-tomcat-8.5.23/ /usr/share/apache-tomcat-8.5.23/
+COPY --from=builder /usr/share/apache-tomcat-8.5.23/ /usr/share/tomcat/
 
 WORKDIR /usr/share/
-
-RUN ln -s apache-tomcat-8.5.23 tomcat && \
-    groupadd tomcat && \
-    useradd -s /bin/bash -g tomcat tomcat && \
-    chown -Rf tomcat.tomcat /usr/share/tomcat
 
 # Tag the image
 ARG BUILD_NUMBER

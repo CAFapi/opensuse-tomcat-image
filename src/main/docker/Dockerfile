@@ -40,9 +40,14 @@ RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/se
 #
 FROM cafapi/opensuse-jre8:1.0
 
-COPY --from=builder /usr/share/apache-tomcat-8.5.23/ /usr/share/tomcat/
+ENV CATALINA_HOME /usr/share/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+WORKDIR $CATALINA_HOME
 
-WORKDIR /usr/share/
+COPY --from=builder /usr/share/apache-tomcat-8.5.23/ .
+
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
 
 # Tag the image
 ARG BUILD_NUMBER

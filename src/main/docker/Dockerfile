@@ -38,7 +38,7 @@ RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/se
 #
 # The actual image definition
 #
-FROM cafapi/opensuse-jre8:1.0
+FROM cafinternal/prereleases:opensuse-jre8-1.1.0-SNAPSHOT
 
 ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

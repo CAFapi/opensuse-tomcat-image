@@ -40,4 +40,33 @@
             <xsl:attribute name="buffered">false</xsl:attribute>
         </xsl:copy>
     </xsl:template>
+
+    <!-- Add an administration port -->
+    <xsl:template match="/Server/Service[@name='Catalina']">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()"/>
+        </xsl:copy>
+        <Service name="CatalinaAdmin">
+            <Connector port="8081" protocol="HTTP/1.1">
+                <!-- Copy the connection timeout from the main connector -->
+                <xsl:attribute name="connectionTimeout">
+                    <xsl:value-of select="Connector[@port='8080']/@connectionTimeout" />
+                </xsl:attribute>
+            </Connector>
+            <Engine name="CatalinaAdmin" defaultHost="localhost">
+                <Host name="localhost" appBase="adminapps" autoDeploy="false">
+                    <Valve className="org.apache.catalina.valves.AccessLogValve"
+                           directory="/dev"
+                           prefix="stdout"
+                           rotatable="false"
+                           encoding="UTF-8"
+                           buffered="false">
+                        <xsl:attribute name="pattern">admin_access_log> <xsl:value-of
+                            select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" />
+                        </xsl:attribute>
+                    </Valve>
+                </Host>
+            </Engine>
+        </Service>
+    </xsl:template>
 </xsl:stylesheet>

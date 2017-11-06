@@ -40,13 +40,17 @@ RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/se
 #
 FROM cafapi/opensuse-jre8:1.0
 
+RUN zypper -n install curl
+
 ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 WORKDIR $CATALINA_HOME
 
 COPY --from=builder /usr/share/apache-tomcat-8.5.23/ .
 
-EXPOSE 8080
+HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
+
+EXPOSE 8080 8081
 CMD ["catalina.sh", "run"]
 
 # Tag the image

@@ -48,7 +48,7 @@ RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 #
 # The actual image definition
 #
-FROM cafinternal/prereleases:opensuse-jre8-1.1.0-SNAPSHOT
+FROM cafapi/opensuse-jre8:1.1
 
 RUN zypper -n install curl
 

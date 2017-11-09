@@ -19,21 +19,31 @@
 #
 FROM opensuse:42.3 AS builder
 RUN zypper -n install tar xsltproc
-WORKDIR /usr/share/
+WORKDIR /wd
+
+ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
+    TOMCAT_DIR_NAME=tomcat
+ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
+ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
+
+# Extract Tomcat and remove unwanted web applications
 COPY apache-tomcat-8.5.23.tar.gz .
-RUN tar xzf apache-tomcat-8.5.23.tar.gz
-WORKDIR apache-tomcat-8.5.23/
-RUN rm -rf webapps/docs/ webapps/examples/ webapps/host-manager/ webapps/manager/
+RUN mkdir -p $TOMCAT_PARENT_DIR && \
+    cd $TOMCAT_PARENT_DIR && \
+    tar xzf /wd/apache-tomcat-8.5.23.tar.gz && \
+    mv apache-tomcat-8.5.23 $TOMCAT_DIR_NAME && \
+    cd $TOMCAT_ROOT_DIR/webapps && \
+    rm -rf docs/ examples/ host-manager/ manager/
 
 # Overwrite the main logging configuration file
-# (It is being copied to a temporary folder first, and then overwritten using cp, in order to retain the original file's permissions.)
-COPY logging.properties /tmp/tomcat/conf/
-RUN cp /tmp/tomcat/conf/logging.properties conf/
+# (It is being copied to the working folder first, and then overwritten using cp, in order to retain the original file's permissions.)
+COPY logging.properties .
+RUN cp logging.properties $TOMCAT_CONF_DIR
 
 # Apply the specified transform to the server.xml file
-COPY server.xslt /tmp/tomcat/conf/
-RUN cp conf/server.xml /tmp/tomcat/conf/
-RUN xsltproc -o conf/server.xml /tmp/tomcat/conf/server.xslt /tmp/tomcat/conf/server.xml
+COPY server.xslt .
+RUN cp $TOMCAT_CONF_DIR/server.xml .
+RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 
 #
 # The actual image definition
@@ -51,7 +61,7 @@ HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 EXPOSE 8080 8081
 CMD ["catalina.sh", "run"]
 
-COPY --from=builder /usr/share/apache-tomcat-8.5.23/ .
+COPY --from=builder /wd/root/ /
 
 # Tag the image
 ARG BUILD_NUMBER

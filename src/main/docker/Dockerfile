@@ -45,6 +45,10 @@ COPY server.xslt .
 RUN cp $TOMCAT_CONF_DIR/server.xml .
 RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 
+# Add in the startup scripts
+COPY startup.d/ root/startup/startup.d/
+RUN chmod +x root/startup/startup.d/*
+
 #
 # The actual image definition
 #
@@ -58,7 +62,7 @@ WORKDIR $CATALINA_HOME
 
 HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 
-EXPOSE 8080 8081
+EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /

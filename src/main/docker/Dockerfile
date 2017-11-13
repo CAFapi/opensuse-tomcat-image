@@ -52,9 +52,7 @@ RUN chmod +x root/startup/startup.d/*
 #
 # The actual image definition
 #
-FROM cafapi/opensuse-jre8:1.1
-
-RUN zypper -n install curl
+FROM cafapi/opensuse-jre8:1.2
 
 ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

@@ -16,6 +16,10 @@
 
 FROM cafapi/opensuse-jre8:1.0
 
+# Update the OS packages
+RUN zypper -n refresh && \
+    zypper -n update
+
 ADD apache-tomcat-8.5.23.tar.gz /usr/share
 
 WORKDIR /usr/share/

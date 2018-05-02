@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#
+
 # This script replaces the log level value in logging.properties if environment variable CAF_LOG_LEVEL is set
 #
 #Declare and initialize associative array. This is a mapping of log4j2 levels with that of java.util.logging

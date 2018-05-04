@@ -50,10 +50,10 @@ The script then reads the database details from a set of environment variables w
 #### Setup Log Level Script
 The image comes pre-installed with a script `setup-loglevel.sh` that will set the Tomcat log level in `$CATALINA_HOME/conf/logging.properties` with the value in the provided environment variable `CAF_LOG_LEVEL`. The levels available are mapped to Tomcat log levels as follows:
 
-| *CAF_LOG_LEVEL* | *Tomcat Log Level* |
-|:---------------:|:------------------:|
-|      FATAL      | SEVERE             |
-|      ERROR      | SEVERE             |
-|       WARN      | WARNING            |
-|      DEBUG      | FINE               |
-|      TRACE      | FINEST             |
+| **CAF_LOG_LEVEL** | **Tomcat Log Level** |
+|:-----------------:|:--------------------:|
+|       FATAL       |        SEVERE        |
+|       ERROR       |        SEVERE        |
+|        WARN       |        WARNING       |
+|       DEBUG       |         FINE         |
+|       TRACE       |        FINEST        |

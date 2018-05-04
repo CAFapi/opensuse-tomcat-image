@@ -27,6 +27,18 @@ Any executable scripts added to the `/startup/startup.d/` directory will be auto
 #### Certificate Installation
 The image comes pre-installed with a startup script which provides a mechanism to extend the CA certificates which should be trusted.
 
+#### Setup Log Level Script
+The image comes pre-installed with a script that configures the Tomcat log level with the level set in the provided environment variable `CAF_LOG_LEVEL`. The levels available are mapped to Tomcat log levels as follows:
+
+| **CAF_LOG_LEVEL** | **Tomcat Log Level** |
+|:-----------------:|:--------------------:|
+|       FATAL       |        SEVERE        |
+|       ERROR       |        SEVERE        |
+|        WARN       |        WARNING       |
+|        INFO       |         INFO         |
+|       DEBUG       |         FINE         |
+|       TRACE       |        FINEST        |
+
 ### Pre-Installed Utility Scripts
 
 #### Database Creation Script
@@ -46,14 +58,3 @@ The script then reads the database details from a set of environment variables w
 | `SERVICE_`DATABASE_PASSWORD | The password to use when establishing the connection to the PostgreSQL server.                         |
 | `SERVICE_`DATABASE_APPNAME  | The application name that PostgreSQL should associate with the connection for logging and monitoring.  |
 | `SERVICE_`DATABASE_NAME     | The name of the PostgreSQL database to be created.                                                     |
-
-#### Setup Log Level Script
-The image comes pre-installed with a script `setup-loglevel.sh` that will set the Tomcat log level in `$CATALINA_HOME/conf/logging.properties` with the value in the provided environment variable `CAF_LOG_LEVEL`. The levels available are mapped to Tomcat log levels as follows:
-
-| **CAF_LOG_LEVEL** | **Tomcat Log Level** |
-|:-----------------:|:--------------------:|
-|       FATAL       |        SEVERE        |
-|       ERROR       |        SEVERE        |
-|        WARN       |        WARNING       |
-|       DEBUG       |         FINE         |
-|       TRACE       |        FINEST        |

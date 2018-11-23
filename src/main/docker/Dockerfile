@@ -17,7 +17,7 @@
 #
 # Preliminary image that downloads Tomcat and makes some modifications
 #
-FROM opensuse:42.3 AS builder
+FROM opensuse/leap:42.3 AS builder
 RUN zypper -n install tar xsltproc
 WORKDIR /wd
 

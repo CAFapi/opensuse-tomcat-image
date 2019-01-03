@@ -17,8 +17,8 @@
 #
 # Preliminary image that downloads Tomcat and makes some modifications
 #
-FROM opensuse/leap:42.3 AS builder
-RUN zypper -n install tar xsltproc
+FROM opensuse/leap:latest AS builder
+RUN zypper -n install gzip tar xsltproc
 WORKDIR /wd
 
 ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \

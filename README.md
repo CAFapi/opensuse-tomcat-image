@@ -1,6 +1,6 @@
 # openSUSE with Java and Tomcat image
 
-This project builds on the openSUSE Java image [here](https://github.com/CAFapi/opensuse-jre8-image) to build a pre-configured Tomcat Docker image.
+This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) to build a pre-configured Tomcat Docker image.
 
 It can be used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
 

@@ -26,11 +26,8 @@ ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
 ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
-# Download Tomcat
-ADD http://apache.mirrors.pair.com/tomcat/tomcat-9/v9.0.26/bin/apache-tomcat-9.0.26.tar.gz \
-    /wd
-
 # Extract Tomcat and remove unwanted web applications
+COPY apache-tomcat-9.0.26.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.26.tar.gz && \

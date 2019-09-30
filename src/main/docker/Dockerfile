@@ -1,5 +1,5 @@
 #
-# Copyright 2017-2018 Micro Focus or one of its affiliates.
+# Copyright 2017-2019 Micro Focus or one of its affiliates.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,12 +26,15 @@ ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
 ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
+# Download Tomcat
+ADD http://apache.mirrors.pair.com/tomcat/tomcat-9/v9.0.26/bin/apache-tomcat-9.0.26.tar.gz \
+    /wd
+
 # Extract Tomcat and remove unwanted web applications
-COPY apache-tomcat-9.0.19.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.19.tar.gz && \
-    mv apache-tomcat-9.0.19 $TOMCAT_DIR_NAME && \
+    tar xzf /wd/apache-tomcat-9.0.26.tar.gz && \
+    mv apache-tomcat-9.0.26 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 

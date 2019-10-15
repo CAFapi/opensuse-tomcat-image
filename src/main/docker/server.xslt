@@ -63,7 +63,7 @@
             <xsl:attribute name="directory">/dev</xsl:attribute>
             <xsl:attribute name="prefix">stdout</xsl:attribute>
             <xsl:attribute name="rotatable">false</xsl:attribute>
-            <xsl:attribute name="pattern">access_log> <xsl:value-of select="@pattern" /></xsl:attribute>
+            <xsl:attribute name="pattern"><xsl:value-of select="@pattern" /></xsl:attribute>
             <xsl:attribute name="encoding">UTF-8</xsl:attribute>
             <xsl:attribute name="buffered">false</xsl:attribute>
         </xsl:copy>

@@ -89,7 +89,7 @@
                            rotatable="false"
                            encoding="UTF-8"
                            buffered="false">
-                        <xsl:attribute name="pattern">admin_access_log> <xsl:value-of
+                        <xsl:attribute name="pattern"><xsl:value-of
                             select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" />
                         </xsl:attribute>
                     </Valve>

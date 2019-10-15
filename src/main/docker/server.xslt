@@ -63,7 +63,7 @@
             <xsl:attribute name="directory">/dev</xsl:attribute>
             <xsl:attribute name="prefix">stdout</xsl:attribute>
             <xsl:attribute name="rotatable">false</xsl:attribute>
-            <xsl:attribute name="pattern">access_log> <xsl:value-of select="@pattern" /></xsl:attribute>
+            <xsl:attribute name="pattern"><xsl:value-of select="@pattern" /></xsl:attribute>
             <xsl:attribute name="encoding">UTF-8</xsl:attribute>
             <xsl:attribute name="buffered">false</xsl:attribute>
         </xsl:copy>
@@ -89,7 +89,7 @@
                            rotatable="false"
                            encoding="UTF-8"
                            buffered="false">
-                        <xsl:attribute name="pattern">admin_access_log> <xsl:value-of
+                        <xsl:attribute name="pattern"><xsl:value-of
                             select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" />
                         </xsl:attribute>
                     </Valve>

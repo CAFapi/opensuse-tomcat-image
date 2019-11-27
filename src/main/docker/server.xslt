@@ -83,14 +83,14 @@
             </Connector>
             <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve"
+                    <Valve className="org.apache.catalina.valves.AccessLogValve"
                            directory="/dev"
                            prefix="stdout"
                            rotatable="false"
                            encoding="UTF-8"
                            buffered="false">
                         <xsl:attribute name="pattern"><xsl:value-of
-                            select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='ch.qos.logback.access.tomcat.LogbackValve']/@pattern" />
+                            select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" />
                         </xsl:attribute>
                     </Valve>
                 </Host>

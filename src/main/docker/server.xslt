@@ -55,11 +55,9 @@
     </xsl:template>
 
     <!-- Override the specified access logging element -->
-    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='ch.qos.logback.access.tomcat.LogbackValve']">
+    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
-            <xsl:attribute name="className">
-                <xsl:value-of select="@className" />
-            </xsl:attribute>
+            <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
             <xsl:attribute name="directory">/dev</xsl:attribute>
             <xsl:attribute name="prefix">stdout</xsl:attribute>
             <xsl:attribute name="rotatable">false</xsl:attribute>

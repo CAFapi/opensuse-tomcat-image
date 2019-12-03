@@ -81,12 +81,12 @@
         <dependency>
             <groupId>com.github.cafapi.logging</groupId>
             <artifactId>caf-logging-common</artifactId>
-            <version>1.2.0-SCMOD-7821-SNAPSHOT</version>
+            <version>1.2.0-SCMOD-7821-accesslog-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.cafapi.logging</groupId>
             <artifactId>caf-logging-logback-access</artifactId>
-            <version>1.2.0-SCMOD-7821-SNAPSHOT</version>
+            <version>1.2.0-SCMOD-7821-accesslog-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.cafapi.util</groupId>
@@ -135,13 +135,13 @@
                                         <dependencySets>
                                             <dependencySet>
                                                 <includes>
-                                                    <include>ch.qos.logback:logback-access:jar:1.2.3</include>
-                                                    <include>ch.qos.logback:logback-core:jar:1.2.3</include>
-                                                    <include>ch.qos.logback:logback-classic:jar:1.2.3</include>
-                                                    <include>com.github.cafapi.logging:caf-logging-common:jar:1.2.0-SNAPSHOT</include>
-                                                    <include>com.github.cafapi.logging:caf-logging-logback-access:jar:1.2.0-SNAPSHOT</include>
-                                                    <include>com.github.tomcat-slf4j-logback:tomcat9-slf4j-logback:jar:9.0.26</include>
-                                                    <include>com.github.cafapi.util:util-process-identifier:jar:1.16.0-118</include>
+                                                    <include>ch.qos.logback:logback-access</include>
+                                                    <include>ch.qos.logback:logback-core</include>
+                                                    <include>ch.qos.logback:logback-classic</include>
+                                                    <include>com.github.cafapi.logging:caf-logging-common</include>
+                                                    <include>com.github.cafapi.logging:caf-logging-logback-access</include>
+                                                    <include>com.github.tomcat-slf4j-logback:tomcat9-slf4j-logback</include>
+                                                    <include>com.github.cafapi.util:util-process-identifier:jar</include>
                                                 </includes>
                                                 <useTransitiveFiltering>true</useTransitiveFiltering>
                                                 <outputDirectory>/lib</outputDirectory>

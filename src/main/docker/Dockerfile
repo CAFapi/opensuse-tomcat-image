@@ -43,21 +43,13 @@ COPY logging.properties .
 RUN cp logging.properties $TOMCAT_CONF_DIR
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
-COPY logback.xml .
-RUN cp logback.xml $TOMCAT_CONF_DIR
-
-COPY logback-access.xml .
-RUN cp logback-access.xml $TOMCAT_CONF_DIR
+COPY logback*.xml $TOMCAT_CONF_DIR/
 
 # Copy new setenv.bat and setenv.sh to tomcat bin folder
-COPY setenv.bat .
-RUN cp setenv.bat $TOMCAT_BIN_DIR
+COPY setenv.* $TOMCAT_BIN_DIR/
 
-COPY setenv.sh .
-RUN cp setenv.sh $TOMCAT_BIN_DIR
-
-#COPY lib/ .
-COPY lib/ $TOMCAT_LIB_DIR
+#COPY lib folder to tomcat lib folder
+COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
 RUN mv $TOMCAT_LIB_DIR/tomcat9-slf4j-logback-9.0.26.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file

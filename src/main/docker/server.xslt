@@ -58,12 +58,6 @@
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
             <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
-            <xsl:attribute name="directory">/dev</xsl:attribute>
-            <xsl:attribute name="prefix">stdout</xsl:attribute>
-            <xsl:attribute name="rotatable">false</xsl:attribute>
-            <xsl:attribute name="pattern"><xsl:value-of select="@pattern" /></xsl:attribute>
-            <xsl:attribute name="encoding">UTF-8</xsl:attribute>
-            <xsl:attribute name="buffered">false</xsl:attribute>
         </xsl:copy>
     </xsl:template>
 
@@ -81,15 +75,7 @@
             </Connector>
             <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve"
-                           directory="/dev"
-                           prefix="stdout"
-                           rotatable="false"
-                           encoding="UTF-8"
-                           buffered="false">
-                        <xsl:attribute name="pattern"><xsl:value-of
-                            select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='ch.qos.logback.access.tomcat.LogbackValve']/@pattern" />
-                        </xsl:attribute>
+                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve">
                     </Valve>
                 </Host>
             </Engine>

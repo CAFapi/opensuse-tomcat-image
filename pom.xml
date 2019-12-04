@@ -135,13 +135,7 @@
                                         <dependencySets>
                                             <dependencySet>
                                                 <includes>
-                                                    <include>ch.qos.logback:logback-access</include>
-                                                    <include>ch.qos.logback:logback-core</include>
-                                                    <include>ch.qos.logback:logback-classic</include>
-                                                    <include>com.github.cafapi.logging:caf-logging-common</include>
-                                                    <include>com.github.cafapi.logging:caf-logging-logback-access</include>
-                                                    <include>com.github.tomcat-slf4j-logback:tomcat9-slf4j-logback</include>
-                                                    <include>com.github.cafapi.util:util-process-identifier:jar</include>
+                                                    <include>*</include>
                                                 </includes>
                                                 <useTransitiveFiltering>true</useTransitiveFiltering>
                                                 <outputDirectory>/lib</outputDirectory>

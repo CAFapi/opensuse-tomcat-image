@@ -48,7 +48,7 @@ COPY logback*.xml $TOMCAT_CONF_DIR/
 # Copy new setenv.bat and setenv.sh to tomcat bin folder
 COPY setenv.* $TOMCAT_BIN_DIR/
 
-#COPY a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
+#Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
 RUN mv $TOMCAT_LIB_DIR/tomcat9-slf4j-logback-9.0.26.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
 

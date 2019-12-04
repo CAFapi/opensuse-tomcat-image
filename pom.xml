@@ -134,10 +134,6 @@
                                     <inline>
                                         <dependencySets>
                                             <dependencySet>
-                                                <includes>
-                                                    <include>*</include>
-                                                </includes>
-                                                <useTransitiveFiltering>true</useTransitiveFiltering>
                                                 <outputDirectory>/lib</outputDirectory>
                                             </dependencySet>
                                         </dependencySets>

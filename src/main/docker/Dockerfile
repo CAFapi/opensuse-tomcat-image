@@ -37,11 +37,6 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 
-# Overwrite the main logging configuration file
-# (It is being copied to the working folder first, and then overwritten using cp, in order to retain the original file's permissions.)
-COPY logging.properties .
-RUN cp logging.properties $TOMCAT_CONF_DIR
-
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $TOMCAT_CONF_DIR/
 

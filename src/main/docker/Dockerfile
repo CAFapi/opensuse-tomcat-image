@@ -35,7 +35,7 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.26.tar.gz && \
     mv apache-tomcat-9.0.26 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf docs/ examples/ host-manager/ manager/
+    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $TOMCAT_CONF_DIR/

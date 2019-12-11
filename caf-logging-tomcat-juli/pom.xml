@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017-2020 Micro Focus or one of its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+         <groupId>com.github.cafapi.opensuse.tomcat</groupId>
+        <artifactId>opensuse-tomcat-image</artifactId>
+        <version>3.7.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>caf-logging-tomcat-juli</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomcat-slf4j-logback</groupId>
+            <artifactId>tomcat9-slf4j-logback</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cafapi.logging</groupId>
+            <artifactId>caf-logging-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cafapi.util</groupId>
+            <artifactId>util-process-identifier</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-juli</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+     <build>
+        <plugins>
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-config</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.tomcat-slf4j-logback</groupId>
+                                    <artifactId>tomcat-slf4j-logback-config</artifactId>
+                                    <version>1.1.2</version>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tomcat-slfj4-logback-config</outputDirectory>
+                                    <excludes>META-INF/**</excludes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <createSourcesJar>true</createSourcesJar>
+                            <shadeSourcesContent>true</shadeSourcesContent>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.apache.tomcat:tomcat-juli</include>
+
+                                    <include>org.slf4j:jcl-over-slf4j</include>
+                                    <include>org.slf4j:slf4j-api</include>
+                                    <include>ch.qos.logback:logback-classic</include>
+                                    <include>ch.qos.logback:logback-core</include>
+                                    <include>com.fasterxml.jackson.core:jackson-core</include>
+                                    <include>com.github.cafapi.util:util-process-identifier</include>
+                                    <include>com.github.cafapi.logging:caf-logging-common</include>
+                                </includes>
+                            </artifactSet>
+
+                            <filters>
+                                <filter>
+                                    <artifact>org.apache.tomcat:tomcat-juli</artifact>
+                                    <includes>
+                                        <include>org/apache/juli/ClassLoaderLogManager**</include>
+                                        <include>org/apache/juli/WebappProperties.class</include>
+                                        <include>META-INF/LICENSE</include>
+                                        <include>META-INF/NOTICE</include>
+                                    </includes>
+                                </filter>
+
+                                <!-- Exclude services from jcl-over-slf4j as not needed in this classloader -->
+                                <filter>
+                                    <artifact>org.slf4j:jcl-over-slf4j</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/services/**</exclude>
+                                    </excludes>
+                                </filter>
+
+                                <!-- Exclude 'ServletContainerInitializer' service from logback-classic as not needed in this classloader -->
+                                <filter>
+                                    <artifact>ch.qos.logback:logback-classic</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/services/javax.servlet.ServletContainerInitializer</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.apache.commons.logging</pattern>
+                                    <shadedPattern>org.apache.juli.logging</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.slf4j</pattern>
+                                    <shadedPattern>org.apache.juli.logging.org.slf4j</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>ch.qos.logback</pattern>
+                                    <shadedPattern>org.apache.juli.logging.ch.qos.logback</shadedPattern>
+                                </relocation>
+                               
+                                <!-- Located in org.apache.juli.logging.ch.qos.logback.classic.util -->
+                                <relocation>
+                                    <pattern>logback.configurationFile</pattern>
+                                    <shadedPattern>juli-logback.configurationFile</shadedPattern>
+                                </relocation>
+                                <!-- Located in org.apache.juli.logging.org.slf4j.MarkerFactory -->
+                                <relocation>
+                                    <pattern>logback.ContextSelector</pattern>
+                                    <shadedPattern>juli-logback.ContextSelector</shadedPattern>
+                                </relocation>
+                            </relocations>
+
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/LICENSE-tomcat9-slf4j-logback</resource>
+                                    <file>${project.basedir}/LICENSE-tomcat9-slf4j-logback.txt</file>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/LICENSE-logback.txt</resource>
+                                    <file>${project.build.directory}/tomcat-slfj4-logback-config/assembly/LICENSE-logback.txt</file>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/LICENSE-slf4j.txt</resource>
+                                    <file>${project.build.directory}/tomcat-slfj4-logback-config/assembly/LICENSE-slf4j.txt</file>
+                                </transformer>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
+                                    <resource>META-INF/LICENSE-tomcat.txt</resource>
+                                    <file>${project.build.directory}/tomcat-slfj4-logback-config/assembly/LICENSE-tomcat.txt</file>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <name>caf-logging-tomcat-juli</name>
+</project>

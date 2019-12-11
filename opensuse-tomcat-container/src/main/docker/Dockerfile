@@ -35,12 +35,7 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.26.tar.gz && \
     mv apache-tomcat-9.0.26 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf docs/ examples/ host-manager/ manager/
-
-# Overwrite the main logging configuration file
-# (It is being copied to the working folder first, and then overwritten using cp, in order to retain the original file's permissions.)
-COPY logging.properties .
-RUN cp logging.properties $TOMCAT_CONF_DIR
+    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/    
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $TOMCAT_CONF_DIR/
@@ -50,7 +45,7 @@ COPY setenv.* $TOMCAT_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
-RUN mv $TOMCAT_LIB_DIR/tomcat9-slf4j-logback-9.0.26.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
+RUN mv $TOMCAT_LIB_DIR/caf-logging-tomcat-juli-*.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .

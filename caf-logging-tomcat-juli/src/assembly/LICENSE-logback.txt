@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-
+====
     Copyright 2017-2020 Micro Focus or one of its affiliates.
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,18 +12,20 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+====
 
--->
-<configuration>  
+Logback LICENSE
+---------------
 
-    <appender name="STDOUT" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender"/>
-    
-    <logger name="org.apache.catalina" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
-        <appender-ref ref="STDOUT" />
-    </logger>  
+Logback: the reliable, generic, fast and flexible logging framework.
+Copyright (C) 1999-2015, QOS.ch. All rights reserved.
 
-    <root level="${CAF_LOG_LEVEL:-INFO}">
-        <appender-ref ref="STDOUT" />
-    </root>
+This program and the accompanying materials are dual-licensed under
+either the terms of the Eclipse Public License v1.0 as published by
+the Eclipse Foundation
+ 
+  or (per the licensee's choosing)
+ 
+under the terms of the GNU Lesser General Public License version 2.1
+as published by the Free Software Foundation.
 
-</configuration>

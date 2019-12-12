@@ -27,7 +27,7 @@
     
     <logger name="org.apache.catalina" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
         <appender-ref ref="STDOUT" />
-    </logger>  
+    </logger>
     
     <root level="${CAF_LOG_LEVEL:-INFO}">
         <appender-ref ref="STDOUT" />

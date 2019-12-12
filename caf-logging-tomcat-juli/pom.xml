@@ -76,7 +76,7 @@
     </dependencies>
      <build>
         <plugins>
-             <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -208,5 +208,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>caf-logging-tomcat-juli</name>
 </project>

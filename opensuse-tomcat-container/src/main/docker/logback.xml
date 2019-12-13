@@ -28,11 +28,9 @@
     <logger name="org.apache.catalina" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
-    
     <root level="${CAF_LOG_LEVEL:-INFO}">
         <appender-ref ref="STDOUT" />
     </root>
-    
     <logger name="org.hibernate.engine" level="${CAF_LOG_LEVEL_HIBERNATE:-ERROR}" />
 
 </configuration>

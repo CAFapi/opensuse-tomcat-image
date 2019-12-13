@@ -20,7 +20,7 @@
 
     <appender name="STDOUT" class="com.github.cafapi.logging.tomcat.juli.CAFTomcatConsoleAppender">
         <encoder>          
-            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %thread %-5level -            -   ] %logger{30} : %msg%n</pattern>
+            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %thread %-5level -            -   ] %logger{30}: %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>

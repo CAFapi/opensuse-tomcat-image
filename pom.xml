@@ -86,6 +86,11 @@
                 <version>${logbackVersion}</version>
             </dependency>
             <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.9.8</version>
+            </dependency>
+            <dependency>
                 <groupId>com.github.cafapi.logging</groupId>
                 <artifactId>caf-logging-common</artifactId>
                 <version>1.2.0-SNAPSHOT</version>
@@ -111,9 +116,9 @@
                 <version>${tomcatVersion}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>2.9.8</version>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-juli</artifactId>
+                <version>${tomcatVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -124,11 +129,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.25</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-juli</artifactId>
-               <version>${tomcatVersion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

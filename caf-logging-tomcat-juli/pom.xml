@@ -96,6 +96,13 @@
                                     <outputDirectory>${project.build.directory}/tomcat-slfj4-logback-config</outputDirectory>
                                     <excludes>META-INF/**</excludes>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.github.tomcat-slf4j-logback</groupId>
+                                    <artifactId>tomcat9-slf4j-logback</artifactId>
+                                    <version>9.0.26</version>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tomcat-slfj4-logback-config</outputDirectory>
+                                </artifactItem>
                             </artifactItems>
                         </configuration>
                     </execution>
@@ -118,7 +125,6 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.apache.tomcat:tomcat-juli</include>
-
                                     <include>org.slf4j:jcl-over-slf4j</include>
                                     <include>org.slf4j:slf4j-api</include>
                                     <include>ch.qos.logback:logback-classic</include>
@@ -195,7 +201,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
                                     <resource>META-INF/LICENSE-tomcat9-slf4j-logback</resource>
-                                    <file>${project.basedir}/LICENSE</file>
+                                    <file>${project.build.directory}/tomcat-slfj4-logback-config/META-INF/LICENSE</file>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.IncludeResourceTransformer">
                                     <resource>META-INF/LICENSE-logback.txt</resource>

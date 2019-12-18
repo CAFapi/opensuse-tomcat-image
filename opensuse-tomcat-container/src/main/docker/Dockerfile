@@ -45,7 +45,7 @@ COPY setenv.* $TOMCAT_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
-RUN mv $TOMCAT_LIB_DIR/caf-logging-tomcat-juli-*.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
+RUN mv $TOMCAT_LIB_DIR/caf-logging-tomcat-juli-3.7.0-SNAPSHOT.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .

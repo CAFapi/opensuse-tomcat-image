@@ -54,14 +54,13 @@
     </developers>
 	
     <modules>
+        <module>caf-logging-tomcat-juli-util</module>
         <module>caf-logging-tomcat-juli</module>
         <module>opensuse-tomcat-container</module>
     </modules>
 
     <properties>
         <copyrightYear>2020</copyrightYear>
-        <maven.install.skip>true</maven.install.skip>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <dockerHubOrganization>cafapi</dockerHubOrganization>
         <dockerCafImagePrefix>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafImagePrefix>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
@@ -103,6 +102,11 @@
             <dependency>
                 <groupId>com.github.cafapi.opensuse.tomcat</groupId>
                 <artifactId>caf-logging-tomcat-juli</artifactId>
+                <version>3.7.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.cafapi.opensuse.tomcat</groupId>
+                <artifactId>caf-logging-tomcat-juli-util</artifactId>
                 <version>3.7.0-SNAPSHOT</version>
             </dependency>
             <dependency>

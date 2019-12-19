@@ -18,11 +18,11 @@
 -->
 <configuration>  
 
-    <conversionRule conversionWord="pidtid"
+    <conversionRule conversionWord="threadName"
                     converterClass="com.github.cafapi.logging.tomcat.juli.util.converter.ProcessIdThreadIdLoggingEventConverter" />
     <appender name="STDOUT" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
         <encoder>          
-            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %pidtid %-5level -            -   ] %logger{30}: %msg%n</pattern>
+            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %threadName %-5level -            -   ] %logger{30}: %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>

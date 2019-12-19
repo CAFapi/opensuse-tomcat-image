@@ -33,7 +33,7 @@
             <artifactId>logback-access</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.cafapi.logging</groupId>
+            <groupId>com.github.cafapi.opensuse.tomcat</groupId>
             <artifactId>caf-logging-logback-access</artifactId>
         </dependency>
         <dependency>

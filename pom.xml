@@ -54,6 +54,7 @@
     </developers>
 	
     <modules>
+        <module>caf-logging-logback-access</module>
         <module>caf-logging-tomcat-juli-util</module>
         <module>caf-logging-tomcat-juli</module>
         <module>opensuse-tomcat-container</module>
@@ -95,9 +96,9 @@
                 <version>1.2.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.cafapi.logging</groupId>
+                <groupId>com.github.cafapi.opensuse.tomcat</groupId>
                 <artifactId>caf-logging-logback-access</artifactId>
-                <version>1.2.0-SNAPSHOT</version>
+                <version>3.7.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.github.cafapi.opensuse.tomcat</groupId>

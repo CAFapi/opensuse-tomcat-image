@@ -54,8 +54,6 @@
     </developers>
 	
     <modules>
-        <module>caf-logging-logback-access</module>
-        <module>caf-logging-tomcat-juli-util</module>
         <module>caf-logging-tomcat-juli</module>
         <module>opensuse-tomcat-container</module>
     </modules>
@@ -96,18 +94,18 @@
                 <version>1.2.0-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>com.github.cafapi.opensuse.tomcat</groupId>
+                <groupId>com.github.cafapi.logging</groupId>
+                <artifactId>caf-logging-logback</artifactId>
+                <version>1.2.0-SCMOD-7821-New-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.cafapi.logging</groupId>
                 <artifactId>caf-logging-logback-access</artifactId>
-                <version>3.7.0-SNAPSHOT</version>
+                <version>1.2.0-SCMOD-7821-New-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.github.cafapi.opensuse.tomcat</groupId>
                 <artifactId>caf-logging-tomcat-juli</artifactId>
-                <version>3.7.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.cafapi.opensuse.tomcat</groupId>
-                <artifactId>caf-logging-tomcat-juli-util</artifactId>
                 <version>3.7.0-SNAPSHOT</version>
             </dependency>
             <dependency>
@@ -116,9 +114,9 @@
                 <version>1.16.0-118</version>
             </dependency>
             <dependency>
-                <groupId>com.github.tomcat-slf4j-logback</groupId>
-                <artifactId>tomcat9-slf4j-logback</artifactId>
-                <version>${tomcatVersion}</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>1.2</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.tomcat</groupId>

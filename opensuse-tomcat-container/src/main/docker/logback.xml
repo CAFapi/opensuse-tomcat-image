@@ -19,10 +19,14 @@
 <configuration>  
 
     <conversionRule conversionWord="threadName"
-                    converterClass="com.github.cafapi.logging.tomcat.juli.util.converter.ProcessIdThreadIdLoggingEventConverter" />
+                    converterClass="com.github.cafapi.logging.logback.ProcessIdThreadIdLoggingEventConverter" />
+    <conversionRule conversionWord="sanitize"
+                    converterClass="com.github.cafapi.logging.logback.SanitizeConverter" />
+    <conversionRule conversionWord="maybeJsonMsgAndEx"
+                    converterClass="com.github.cafapi.logging.logback.MaybeJsonMessageConverter" />
     <appender name="STDOUT" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
         <encoder>          
-            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %threadName %-5level -            -   ] %logger{30}: %msg%n</pattern>
+            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %threadName %-5level -            -   ] %sanitize(%logger{30}): ${patternExtension:- }%maybeJsonMsgAndEx%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>

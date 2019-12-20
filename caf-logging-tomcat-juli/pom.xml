@@ -31,8 +31,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.cafapi.opensuse.tomcat</groupId>
-            <artifactId>caf-logging-tomcat-juli-util</artifactId>
+            <groupId>com.github.cafapi.logging</groupId>
+            <artifactId>caf-logging-logback</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -118,9 +128,11 @@
                                     <include>org.slf4j:slf4j-api</include>
                                     <include>ch.qos.logback:logback-classic</include>
                                     <include>ch.qos.logback:logback-core</include>
+                                    <include>com.fasterxml.jackson.core:jackson-core</include>
+                                    <include>org.apache.commons:commons-text</include>
+                                    <include>com.github.cafapi.logging:caf-logging-logback</include>
                                     <include>com.github.cafapi.util:util-process-identifier</include>
                                     <include>com.github.cafapi.logging:caf-logging-common</include>
-                                    <include>com.github.cafapi.opensuse.tomcat:caf-logging-tomcat-juli-util</include>
                                 </includes>
                             </artifactSet>
 

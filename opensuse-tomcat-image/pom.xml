@@ -90,13 +90,8 @@
                                     <inline>
                                         <dependencySets>
                                             <dependencySet>
-                                                <includes>
-                                                    <include>ch.qos.logback:logback-access</include>
-                                                    <include>ch.qos.logback:logback-core</include>
-                                                    <include>com.github.cafapi.logging:caf-logging-logback-access</include>
-                                                    <include>com.github.cafapi.opensuse.tomcat:caf-logging-tomcat-juli</include>
-                                                </includes>
                                                 <outputDirectory>/lib</outputDirectory>
+                                                <useTransitiveDependencies>false</useTransitiveDependencies>
                                             </dependencySet>
                                         </dependencySets>
                                     </inline>

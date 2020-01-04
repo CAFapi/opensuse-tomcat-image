@@ -26,8 +26,8 @@
         <artifactId>opensuse-tomcat-image-aggregator</artifactId>
         <version>3.7.0-SNAPSHOT</version>
     </parent>
-    
-    <artifactId>opensuse-tomcat-container</artifactId>
+
+    <artifactId>opensuse-tomcat-image</artifactId>
     <packaging>pom</packaging>
 
     <name>openSUSE Tomcat image</name>

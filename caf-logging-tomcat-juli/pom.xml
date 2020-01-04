@@ -81,6 +81,7 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -155,7 +156,9 @@
                                     </excludes>
                                 </filter>
 
-                                <!-- Exclude 'ServletContainerInitializer' service from logback-classic as not needed in this classloader -->
+                                <!--
+                                    Exclude 'ServletContainerInitializer' service from logback-classic as not needed in this classloader
+                                -->
                                 <filter>
                                     <artifact>ch.qos.logback:logback-classic</artifact>
                                     <excludes>

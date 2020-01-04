@@ -52,7 +52,7 @@
             <email>bhagyashree.v.nigudkar@microfocus.com</email>
         </developer>
     </developers>
-	
+
     <modules>
         <module>caf-logging-tomcat-juli</module>
         <module>opensuse-tomcat-container</module>
@@ -66,6 +66,7 @@
         <logbackVersion>1.2.3</logbackVersion>
         <tomcatVersion>9.0.26</tomcatVersion>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -135,7 +136,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <scm>
         <connection>scm:git:https://github.com/CAFapi/opensuse-tomcat-image.git</connection>
         <developerConnection>scm:git:https://github.com/CAFapi/opensuse-tomcat-image.git</developerConnection>

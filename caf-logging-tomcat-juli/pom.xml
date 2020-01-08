@@ -147,6 +147,12 @@
                                         <include>META-INF/NOTICE</include>
                                     </includes>
                                 </filter>
+                                <filter>
+                                    <artifact>com.github.cafapi.logging:caf-logging-logback</artifact>
+                                    <excludes>
+                                        <exclude>logback.xml</exclude>
+                                    </excludes>
+                                </filter>
 
                                 <!-- Exclude services from jcl-over-slf4j as not needed in this classloader -->
                                 <filter>

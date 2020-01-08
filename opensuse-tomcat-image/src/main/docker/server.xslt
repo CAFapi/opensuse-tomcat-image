@@ -58,7 +58,8 @@
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
             <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
-            <xsl:attribute name="quiet">true</xsl:attribute>
+<!--            <xsl:attribute name="quiet">true</xsl:attribute>-->
+            <xsl:attribute name="pattern">[%date{HH:mm:ss.SSS,UTC}Z %aProcessId %-5loglevel %-12header{X-TENANT-ID} %-4header{CAF-Correlation-Id}] AccessLog: %h %u "%r" %s %b "%header{Referer}" "%header{User-Agent}"</xsl:attribute>
         </xsl:copy>
     </xsl:template>
 
@@ -76,7 +77,7 @@
             </Connector>
             <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true">
+                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve" >
                     </Valve>
                 </Host>
             </Engine>

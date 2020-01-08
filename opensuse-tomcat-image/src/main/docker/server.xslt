@@ -58,6 +58,7 @@
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
             <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
+            <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
     </xsl:template>
 
@@ -75,7 +76,7 @@
             </Connector>
             <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve">
+                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true">
                     </Valve>
                 </Host>
             </Engine>

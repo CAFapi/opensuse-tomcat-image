@@ -18,9 +18,9 @@
 -->
 <configuration>
     <conversionRule conversionWord="loglevel"
-                    converterClass="com.github.cafapi.logging.logback.access.LogLevelConverter" />
+                    converterClass="com.github.cafapi.logging.logback.access.converters.LogLevelConverter" />
     <conversionRule conversionWord="aProcessId"
-                    converterClass="com.github.cafapi.logging.logback.access.ProcessAndThreadIdPatternConverter" />
+                    converterClass="com.github.cafapi.logging.logback.access.converters.ProcessAndThreadIdPatternConverter" />
 
     <appender name="ACCESS-LOG-STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>           

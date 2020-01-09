@@ -18,11 +18,11 @@
 -->
 <configuration>  
     <conversionRule conversionWord="aProcessId"
-                    converterClass="com.github.cafapi.logging.logback.ProcessAndThreadIdPatternConverter" />
+                    converterClass="com.github.cafapi.logging.logback.converters.ProcessAndThreadIdPatternConverter" />
     <conversionRule conversionWord="sanitize"
-                    converterClass="com.github.cafapi.logging.logback.SanitizeConverter" />
+                    converterClass="com.github.cafapi.logging.logback.converters.SanitizeConverter" />
     <conversionRule conversionWord="maybeJsonMsgAndEx"
-                    converterClass="com.github.cafapi.logging.logback.MaybeJsonMessageConverter" />
+                    converterClass="com.github.cafapi.logging.logback.converters.MaybeJsonMessageConverter" />
 
     <appender name="STDOUT" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
         <encoder>

@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>com.github.cafapi.logging</groupId>
-            <artifactId>caf-logging-logback</artifactId>
+            <artifactId>caf-logging-logback-converters</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -131,7 +131,7 @@
                                     <include>ch.qos.logback:logback-core</include>
                                     <include>com.fasterxml.jackson.core:jackson-core</include>
                                     <include>org.apache.commons:commons-text</include>
-                                    <include>com.github.cafapi.logging:caf-logging-logback</include>
+                                    <include>com.github.cafapi.logging:caf-logging-logback-converters</include>
                                     <include>com.github.cafapi.util:util-process-identifier</include>
                                     <include>com.github.cafapi.logging:caf-logging-common</include>
                                 </includes>
@@ -147,13 +147,6 @@
                                         <include>META-INF/NOTICE</include>
                                     </includes>
                                 </filter>
-                                <filter>
-                                    <artifact>com.github.cafapi.logging:caf-logging-logback</artifact>
-                                    <excludes>
-                                        <exclude>logback.xml</exclude>
-                                    </excludes>
-                                </filter>
-
                                 <!-- Exclude services from jcl-over-slf4j as not needed in this classloader -->
                                 <filter>
                                     <artifact>org.slf4j:jcl-over-slf4j</artifact>

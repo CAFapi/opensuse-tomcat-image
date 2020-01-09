@@ -51,10 +51,6 @@
             <artifactId>caf-logging-logback-access-converters</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.cafapi.logging</groupId>
-            <artifactId>caf-logging-logback-converters</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.github.cafapi.opensuse.tomcat</groupId>
             <artifactId>caf-logging-tomcat-juli</artifactId>
         </dependency>

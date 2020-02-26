@@ -59,7 +59,10 @@ RUN chmod +x root/startup/startup.d/*
 #
 # The actual image definition
 #
-FROM cafinternal/prereleases:opensuse-jre8-2.0.0-SNAPSHOT
+FROM cafapi/opensuse-jre8:2
+
+RUN zypper -n refresh && \
+    zypper -n update
 
 ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH

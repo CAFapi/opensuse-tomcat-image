@@ -32,11 +32,6 @@
 
     <name>openSUSE Tomcat image</name>
 
-    <properties>
-        <maven.install.skip>true</maven.install.skip>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>ch.qos.logback</groupId>

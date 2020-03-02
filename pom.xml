@@ -60,6 +60,7 @@
 
     <properties>
         <copyrightYear>2020</copyrightYear>
+        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
         <dockerHubOrganization>cafapi</dockerHubOrganization>
         <dockerCafImagePrefix>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafImagePrefix>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>

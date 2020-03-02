@@ -34,7 +34,6 @@
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
-        <skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
     </properties>
 
     <dependencies>

@@ -62,6 +62,14 @@
         </xsl:copy>
     </xsl:template>
 
+    <!-- Add an ErrorReportValve to stop display of stack trace and server info in error pages -->
+    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()"/>
+            <Valve className="org.apache.catalina.valves.ErrorReportValve" showReport="false" showServerInfo="false" />
+        </xsl:copy>
+    </xsl:template>
+
     <!-- Add an administration port -->
     <xsl:template match="/Server/Service[@name='Catalina']">
         <xsl:copy>

@@ -59,7 +59,7 @@ RUN chmod +x root/startup/startup.d/*
 #
 # The actual image definition
 #
-FROM cafapi/opensuse-jre8:2
+FROM cafinternal/prereleases:opensuse-jre8-3.0.0-SNAPSHOT
 
 RUN zypper -n refresh && \
     zypper -n update

@@ -4,7 +4,8 @@
 ${version-number}
 
 #### New Features
-- **SCMOD-8516**: Extend the security hardening of Java base images by disabling TLS algorithms mentioned [here](https://github.com/CAFapi/opensuse-java8-images/blob/develop/src/main/docker/disableWeakTlsAlgorithms.patch)
+- **SCMOD-8516**: Extend the security hardening of Java base images by disabling TLS algorithms mentioned [here](https://github.com/CAFapi/opensuse-java8-images/blob/develop/src/main/docker/disableWeakTlsAlgorithms.patch)  
+- **SCMOD-9686**: Included additional classes from tomcat-juli.jar. Added additional IDE files to gitignore.
 
 #### Known Issues
 - None

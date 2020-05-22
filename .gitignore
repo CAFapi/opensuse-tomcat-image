@@ -1,6 +1,2 @@
 /target/
 **/target/
-.settings/
-.vscode/
-.project
-.classpath

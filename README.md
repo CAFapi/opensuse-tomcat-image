@@ -62,7 +62,7 @@ The script then reads the database details from a set of environment variables w
 #### Setup SSL Certificate for Tomcat Script
 This image comes pre-installed with a utility script which can be used to setup a SSL certificate for use with Tomcat.
 
-If the `SSL_TOMCAT_CA_CERT_LOCATION` is present then the script will be executed and the following environment variables are read:
+If the `SSL_TOMCAT_CA_CERT_LOCATION` environment variable is present then the script will be executed and the following environment variables are read:
 
 |      **Environment Variable**     | **Required** |                                               **Description**                                              |
 |:---------------------------------:|:------------:|:----------------------------------------------------------------------------------------------------------:|

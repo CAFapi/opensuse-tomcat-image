@@ -39,6 +39,18 @@ The image comes pre-installed with a script that configures the Tomcat log level
 |       DEBUG       |         FINE         |
 |       TRACE       |        FINEST        |
 
+#### Setup SSL Certificate for Tomcat Script
+This image comes pre-installed with a utility script which can be used to setup a SSL certificate for use with Tomcat.
+
+If the `SSL_TOMCAT_CA_CERT_LOCATION` environment variable is present then the script will be executed and the following environment variables are read:
+
+|      **Environment Variable**     | **Required** |                                               **Description**                                              |
+|---------------------------------|:------------:|----------------------------------------------------------------------------------------------------------|
+| SSL_TOMCAT_CA_CERT_LOCATION       |      Yes     | Location of the SSL certificate to be setup. **Note**: this replaces the location of the default keystore. |
+| SSL_TOMCAT_CA_CERT_KEYSTORE_PASS  |      No      | Replaces the default keystore password.                                                                    |
+| SSL_TOMCAT_CA_CERT_KEY_PASS       |      No      | Replaces the default key password.                                                                         |
+| SSL_TOMCAT_CA_CERT_KEYSTORE_ALIAS |      No      | Replaces the default keystore alias.                                                                       |
+
 ### Pre-Installed Utility Scripts
 
 #### Database Creation Script

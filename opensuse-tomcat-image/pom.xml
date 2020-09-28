@@ -34,6 +34,8 @@
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
+        <DOCKER_HUB_PRIVATE>${dockerHubPrivate}</DOCKER_HUB_PRIVATE>
+        <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
     </properties>
 
     <dependencies>
@@ -64,7 +66,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.20.1</version>
+                <version>0.34.0</version>
                 <executions>
                     <execution>
                         <id>docker-build</id>
@@ -82,7 +84,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <autoPull>always</autoPull>
                     <images>
                         <image>
                             <name>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</name>

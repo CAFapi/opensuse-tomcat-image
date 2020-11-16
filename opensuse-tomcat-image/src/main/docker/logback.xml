@@ -33,7 +33,7 @@
         </encoder>
     </appender>
 
-    <logger name="log4j.logger.org.apache.commons.digester.Digester" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
+    <logger name="org.apache.commons.digester.Digester" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
     <logger name="org.apache.catalina" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">

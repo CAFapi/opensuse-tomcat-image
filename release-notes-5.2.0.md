@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -8,3 +6,6 @@ ${version-number}
 
 #### Known Issues
 - None
+
+#### Micro Focus Release Authorization 
+- ITLS RTM Approval Id: 1824

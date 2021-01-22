@@ -78,16 +78,3 @@ EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /
-
-# Tag the image
-ARG BUILD_NUMBER
-ARG BUILD_DATE
-ARG GIT_REPO
-ARG GIT_BRANCH
-ARG GIT_COMMIT
-
-LABEL Build.Number="$BUILD_NUMBER" \
-      Build.Date="$BUILD_DATE" \
-      Git.Repo="$GIT_REPO" \
-      Git.Branch="$GIT_BRANCH" \
-      Git.Commit="$GIT_COMMIT"

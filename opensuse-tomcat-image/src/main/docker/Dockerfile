@@ -14,8 +14,7 @@
 # limitations under the License.
 #
 
-# Docker registries
-ARG DOCKER_HUB_PRIVATE=docker.io
+# Docker registry
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #
@@ -63,7 +62,7 @@ RUN chmod +x root/startup/startup.d/*
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PRIVATE}/cafapi/opensuse-jre8:3
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
 
 RUN zypper -n refresh && \
     zypper -n update

@@ -34,7 +34,6 @@
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
-        <DOCKER_HUB_PRIVATE>${dockerHubPrivate}</DOCKER_HUB_PRIVATE>
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
     </properties>
 

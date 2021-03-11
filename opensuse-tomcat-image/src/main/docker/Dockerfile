@@ -57,12 +57,12 @@ RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 
 # Add in the startup scripts
 COPY startup.d/ root/startup/startup.d/
-RUN chmod +x root/startup/startup.d/*
+RUN chmod -R +rx root/startup/startup.d/*
 
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-jdk11-3.3.0-SNAPSHOT
 
 RUN zypper -n refresh && \
     zypper -n update && \
@@ -78,3 +78,5 @@ EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /
+
+RUN chmod -R a+rwx $CATALINA_HOME

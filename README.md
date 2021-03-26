@@ -22,6 +22,18 @@ The derived image is expected to supply the web application being deployed, whic
 ### DejaVu Fonts
 [DejaVu Fonts](https://dejavu-fonts.github.io/) is pre-installed in the container. The DejaVu fonts are a font family based on the Bitstream Vera Fonts. Its purpose is to provide a wider range of characters while maintaining the original look and feel through the process of collaborative development.
 
+### Gosu
+[Gosu](https://github.com/tianon/gosu/) is pre-installed in the container. Gosu allows derived images to run commands as a specified user, rather than as the default user.  
+
+To use gosu, set the `RUNAS_USER` environment variable in the derived container's Dockerfile. Subsequent commands will then be run as the specified user:
+
+```
+ENV RUNAS_USER=my-user
+CMD ["whoami"] # Outputs my-user
+```
+
+Note: the user specified by the `RUNAS_USER` is expected to already exist, and the `CMD` will fail if this is not the case.
+
 ### Startup Scripts
 Any executable scripts added to the `/startup/startup.d/` directory will be automatically run each time the container is started (assuming the image entrypoint is not overwritten).
 

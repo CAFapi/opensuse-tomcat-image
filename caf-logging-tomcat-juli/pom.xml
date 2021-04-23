@@ -144,6 +144,7 @@
                                         <include>org/apache/juli/ClassLoaderLogManager**</include>
                                         <include>org/apache/juli/FileHandler**</include>
                                         <include>org/apache/juli/AsyncFile**</include>
+                                        <include>org/apache/juli/OneLineFormatter**</include>
                                         <include>org/apache/juli/WebappProperties.class</include>
                                         <include>META-INF/LICENSE</include>
                                         <include>META-INF/NOTICE</include>

@@ -55,6 +55,7 @@ the script will read the contents of /var/somefile.txt (for example 'mypassword'
 ```
 ABC_PASSWORD=mypassword
 ```
+This feature is disabled by default. To enable it, ensure a `USE_FILE_BASED_SECRETS` environment variable is present, with a value of `true`, for example, `USE_FILE_BASED_SECRETS=true`.
 
 #### Setup Log Level Script
 The image comes pre-installed with a script that configures the Tomcat log level with the level set in the provided environment variable `CAF_LOG_LEVEL`. The levels available are mapped to Tomcat log levels as follows:

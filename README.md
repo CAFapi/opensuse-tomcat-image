@@ -42,6 +42,21 @@ Any executable scripts added to the `/startup/startup.d/` directory will be auto
 #### Certificate Installation
 The image comes pre-installed with a startup script which provides a mechanism to extend the CA certificates which should be trusted.
 
+#### Export File-Based Secrets Script
+The image comes pre-installed with a startup script which provides support for file-based secrets.
+
+It works by looking for environment variables ending with the _FILE prefix and setting the environment variable base name to the contents of the file.
+
+For example, given this environment variable ending in the _FILE suffix:
+```
+ABC_PASSWORD_FILE=/var/somefile.txt
+```
+the script will read the contents of /var/somefile.txt (for example 'mypassword'), and export an environment variable named ABC_PASSWORD:
+```
+ABC_PASSWORD=mypassword
+```
+This feature is disabled by default. To enable it, ensure a `USE_FILE_BASED_SECRETS` environment variable is present, with a value of `true`, for example, `USE_FILE_BASED_SECRETS=true`.
+
 #### Setup Log Level Script
 The image comes pre-installed with a script that configures the Tomcat log level with the level set in the provided environment variable `CAF_LOG_LEVEL`. The levels available are mapped to Tomcat log levels as follows:
 

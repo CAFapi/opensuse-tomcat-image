@@ -78,3 +78,5 @@ EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /
+
+RUN zypper -n install iputils

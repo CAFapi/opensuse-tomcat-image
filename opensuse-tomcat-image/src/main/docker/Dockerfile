@@ -32,11 +32,11 @@ ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
 ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
 
 # Extract Tomcat and remove unwanted web applications
-COPY apache-tomcat-9.0.46.tar.gz .
+COPY apache-tomcat-9.0.58.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.46.tar.gz && \
-    mv apache-tomcat-9.0.46 $TOMCAT_DIR_NAME && \
+    tar xzf /wd/apache-tomcat-9.0.58.tar.gz && \
+    mv apache-tomcat-9.0.58 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
 

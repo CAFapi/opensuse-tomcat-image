@@ -25,6 +25,7 @@
                     converterClass="com.github.cafapi.logging.logback.converters.MaybeJsonMessageConverter" />
 
     <appender name="STDERR" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
         <encoder>
             <pattern>
                 [%date{yyyy-MM-dd HH:mm:ss.SSS,UTC}Z %pidtid %-5level -            -   ] %sanitize(%logger{30}): %maybeJsonMsgAndEx%n

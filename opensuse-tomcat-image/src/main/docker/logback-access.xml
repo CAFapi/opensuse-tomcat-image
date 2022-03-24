@@ -23,6 +23,7 @@
                     converterClass="com.github.cafapi.logging.logback.access.converters.ProcessAndThreadIdConverter" />
 
     <appender name="ACCESS-LOG-STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
         <encoder>           
             <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS,UTC}Z %pidtid %-5loglevel %-12header{X-TENANT-ID} %-4header{CAF-Correlation-Id}]
                 AccessLog: %h %u "%r" %s %b "%header{Referer}" "%header{User-Agent}"</pattern>

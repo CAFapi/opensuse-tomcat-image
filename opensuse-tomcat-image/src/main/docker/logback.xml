@@ -24,20 +24,21 @@
     <conversionRule conversionWord="maybeJsonMsgAndEx"
                     converterClass="com.github.cafapi.logging.logback.converters.MaybeJsonMessageConverter" />
 
-    <appender name="STDOUT" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDERR" class="org.apache.juli.logging.ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
         <encoder>
             <pattern>
-                [%date{HH:mm:ss.SSS,UTC}Z %pidtid %-5level -            -   ] %sanitize(%logger{30}): %maybeJsonMsgAndEx%n
+                [%date{yyyy-MM-dd HH:mm:ss.SSS,UTC}Z %pidtid %-5level -            -   ] %sanitize(%logger{30}): %maybeJsonMsgAndEx%n
             </pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
 
     <logger name="org.apache.catalina" level="${CAF_LOG_LEVEL:-INFO}" additivity="false">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDERR" />
     </logger>
     <root level="${CAF_LOG_LEVEL:-INFO}">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDERR" />
     </root>
     <logger name="org.hibernate.engine" level="${CAF_LOG_LEVEL_HIBERNATE:-ERROR}" />
 

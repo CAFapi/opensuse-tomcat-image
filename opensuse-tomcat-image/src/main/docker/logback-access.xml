@@ -22,12 +22,13 @@
     <conversionRule conversionWord="pidtid"
                     converterClass="com.github.cafapi.logging.logback.access.converters.ProcessAndThreadIdConverter" />
 
-    <appender name="ACCESS-LOG-STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="ACCESS-LOG-STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
         <encoder>           
-            <pattern>[%date{HH:mm:ss.SSS,UTC}Z %pidtid %-5loglevel %-12header{X-TENANT-ID} %-4header{CAF-Correlation-Id}] AccessLog: %h %u "%r" %s %b "%header{Referer}" "%header{User-Agent}"</pattern>			
+            <pattern>[%date{yyyy-MM-dd HH:mm:ss.SSS,UTC}Z %pidtid %-5loglevel %-12header{X-TENANT-ID} %-4header{CAF-Correlation-Id}] AccessLog: %h %u "%r" %s %b "%header{Referer}" "%header{User-Agent}"</pattern>
             <charset>UTF-8</charset>
         </encoder>
     </appender>
-    <appender-ref ref="ACCESS-LOG-STDOUT" />
+    <appender-ref ref="ACCESS-LOG-STDERR" />
 
 </configuration>

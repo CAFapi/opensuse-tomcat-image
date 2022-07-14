@@ -65,7 +65,7 @@
         <dockerCafImagePrefix>${dockerImagePrefix}${dockerHubOrganization}${dockerOrgSeperator}</dockerCafImagePrefix>
         <dockerProjectVersion>${dockerVersionSeperator}${project.version}</dockerProjectVersion>
         <logbackVersion>1.2.3</logbackVersion>
-        <tomcatVersion>9.0.58</tomcatVersion>
+        <tomcatVersion>9.0.64</tomcatVersion>
     </properties>
 
     <dependencyManagement>

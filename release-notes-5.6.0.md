@@ -4,5 +4,6 @@
 ${version-number}
 
 #### New Features
+- US369215: Set system wide crypto-policies to `FUTURE` to disable weaker security algorithms.
 
 #### Known Issues

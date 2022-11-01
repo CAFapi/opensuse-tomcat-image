@@ -40,6 +40,7 @@
     </xsl:comment><xsl:text>
     </xsl:text><xsl:comment> setup-tomcat-ssl-cert.sh TLS section start
     &lt;Connector port="8443"
+               server="Apache"
                protocol="org.apache.coyote.http11.Http11NioProtocol"
                SSLEnabled="true"
                scheme="https"

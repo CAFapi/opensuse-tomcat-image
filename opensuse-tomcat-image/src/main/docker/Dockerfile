@@ -55,22 +55,20 @@ COPY server.xslt .
 RUN cp $TOMCAT_CONF_DIR/server.xml .
 RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 
-
 ###
 # Apply security enhanced transformation to web.xml file.
 # xmlns in web.xml interferes with the web.xslt namespace therefore is removed for the transformation, then replaced.
 # Replacement of xmlns directory should be kept up to date with current tomcat version.
 ###
 COPY web.xslt .
-RUN cp $TOMCAT_CONF_DIR/web.xml .
-RUN sed -i 's/xmlns=\".*\/\/.*\/.*\/.*\/.*\"/PLACEHOLDER=\"\"/' web.xml
-RUN xsltproc -o $TOMCAT_CONF_DIR/web.xml web.xslt web.xml
-RUN sed -i 's/PLACEHOLDER=\"\"/xmlns=\"http:\/\/xmlns.jcp.org\/xml\/ns\/javaee\"/' $TOMCAT_CONF_DIR/web.xml
+RUN cp $TOMCAT_CONF_DIR/web.xml . && \
+    sed -i 's/xmlns=\".*\/\/.*\/.*\/.*\/.*\"/PLACEHOLDER=\"\"/' web.xml && \
+    xsltproc -o $TOMCAT_CONF_DIR/web.xml web.xslt web.xml && \
+    sed -i 's/PLACEHOLDER=\"\"/xmlns=\"http:\/\/xmlns.jcp.org\/xml\/ns\/javaee\"/' $TOMCAT_CONF_DIR/web.xml
 
 ###
-# Change conf permissions to read only, give write access to log file
+# Give write access to log file
 ###
-RUN chmod -R 400 ${TOMCAT_CONF_DIR}
 RUN chmod -R 300 ${TOMCAT_ROOT_DIR}/logs
 
 # Add in the startup scripts
@@ -90,31 +88,18 @@ ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 WORKDIR $CATALINA_HOME
 
-ARG USER_ID=${TOMCAT_USER_ID:-1000}
-ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
-
-###
-# Tomcat user and group created
-###
-RUN    groupadd -r tomcat -g ${GROUP_ID}
-RUN    useradd -u ${USER_ID} -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin \
-        -c "Tomcat user" tomcat
-
-###
-# Change CATALINA_HOME ownership to tomcat user and tomcat group
-###
-RUN chown -R tomcat:tomcat ${CATALINA_HOME}
-
 HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
+
+EXPOSE 8080 8081 8443
 
 ###
 # Start container
-# Container started as non-root user for security purposes
+# Entrypoint script to run tomcat as non-root user
 ###
+COPY entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-USER tomcat
-
-EXPOSE 8080 8081 8443
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["catalina.sh", "run", "-security"]
 
 COPY --from=builder /wd/root/ /

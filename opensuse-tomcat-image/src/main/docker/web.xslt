@@ -36,7 +36,7 @@
     <!--Replacement of the default error page to produce a blank page for security coverage.-->
     <!--The default error page shows a full stacktrace, disclosing sensitive information.-->
     <xsl:template match="web-app/welcome-file-list">
-        <xsl:apply-templates/>
+        <welcome-file-list><xsl:apply-templates/></welcome-file-list>
         <error-page>
             <exception-type>java.lang.Throwable</exception-type>
             <!-- Not the real /dev/null, but the effect is the same. Capture stack

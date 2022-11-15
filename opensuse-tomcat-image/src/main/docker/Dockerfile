@@ -31,6 +31,9 @@ ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
 ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
 
+ARG USER_ID=${TOMCAT_USER_ID:-1000}
+ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
+
 # Extract Tomcat and remove unwanted web applications
 COPY apache-tomcat-9.0.64.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
@@ -38,7 +41,7 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.64.tar.gz && \
     mv apache-tomcat-9.0.64 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/ ROOT/
+    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/ ROOT
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $TOMCAT_CONF_DIR/
@@ -55,25 +58,29 @@ COPY server.xslt .
 RUN cp $TOMCAT_CONF_DIR/server.xml .
 RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
 
-###
 # Apply security enhanced transformation to web.xml file.
 # xmlns in web.xml interferes with the web.xslt namespace therefore is removed for the transformation, then replaced.
 # Replacement of xmlns directory should be kept up to date with current tomcat version.
-###
 COPY web.xslt .
 RUN cp $TOMCAT_CONF_DIR/web.xml . && \
     sed -i 's/xmlns=\".*\/\/.*\/.*\/.*\/.*\"/PLACEHOLDER=\"\"/' web.xml && \
     xsltproc -o $TOMCAT_CONF_DIR/web.xml web.xslt web.xml && \
     sed -i 's/PLACEHOLDER=\"\"/xmlns=\"http:\/\/xmlns.jcp.org\/xml\/ns\/javaee\"/' $TOMCAT_CONF_DIR/web.xml
 
-###
-# Give write access to log file
-###
-RUN chmod -R 300 ${TOMCAT_ROOT_DIR}/logs
-
 # Add in the startup scripts
 COPY startup.d/ root/startup/startup.d/
 RUN chmod +x root/startup/startup.d/*
+
+# Tomcat user and group created
+RUN    groupadd -r tomcat -g ${GROUP_ID}
+RUN    useradd -u ${USER_ID} -g tomcat -d ${TOMCAT_ROOT_DIR} -s /sbin/nologin \
+        -c "Tomcat user" tomcat
+
+# Change CATALINA_HOME ownership to tomcat user and tomcat group
+RUN   chown -R tomcat:tomcat ${TOMCAT_ROOT_DIR}
+
+# Give write access to log file
+RUN chmod -R 300 ${TOMCAT_ROOT_DIR}/logs
 
 #
 # The actual image definition
@@ -88,18 +95,26 @@ ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 WORKDIR $CATALINA_HOME
 
+ARG USER_ID=${TOMCAT_USER_ID:-1000}
+ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
+
+# Tomcat user and group created again on actual image definition to run as user.
+RUN    groupadd -r tomcat -g ${GROUP_ID}
+RUN    useradd -u ${USER_ID} -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin \
+        -c "Tomcat user" tomcat
+
+
+# Change CATALINA_HOME ownership to tomcat user and tomcat group on actual definition
+RUN   chown -R tomcat:tomcat ${CATALINA_HOME}
+RUN   chmod -R 400 ${CATALINA_HOME/conf}
+
 HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 
+ENV RUNAS_USER=tomcat
+
+CMD ["whoami"]
+
 EXPOSE 8080 8081 8443
-
-###
-# Start container
-# Entrypoint script to run tomcat as non-root user
-###
-COPY entrypoint.sh /
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["catalina.sh", "run", "-security"]
+CMD ["/usr/share/tomcat/bin/catalina.sh", "run", "-security"]
 
 COPY --from=builder /wd/root/ /

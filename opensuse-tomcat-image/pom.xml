@@ -102,10 +102,11 @@
                 <configuration>
                     <images>
                         <image>
+                            <alias>opensuse-tomcat</alias>
                             <name>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-                                 <assembly>
+                                <assembly>
                                     <basedir>/</basedir>
                                     <inline>
                                         <dependencySets>
@@ -127,42 +128,30 @@
                         <image>
                             <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
                             <build>
-                                <from>dev/cafapi/opensuse-tomcat:5.7.0-SNAPSHOT</from>
+                                <from>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</from>
                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>
                                         <files>
                                             <file>
-                                                <source>src/test/test.html</source>
+                                                <source>src/test/resources/test.html</source>
                                                 <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
                                             </file>
                                         </files>
                                     </inline>
                                 </assembly>
-                                <args>
-                                    <!-- Enable internet access -->
-                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
-                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
-                                    <no_proxy>${env.NO_PROXY}</no_proxy>
-                                </args>
                             </build>
                             <run>
-                                <env>
-                                    <CATALINA_OPTS>
-                                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
-                                    </CATALINA_OPTS>
-                                </env>
                                 <log>
                                     <enabled>true</enabled>
                                 </log>
                                 <ports>
-                                    <port>${adapter.port}:8080</port>
-                                    <port>${adapter.debugport}:5005</port>
+                                    <port>${tomcat.port}:8080</port>
                                 </ports>
                                 <wait>
                                     <http>
                                         <method>GET</method>
-                                        <url>http://${docker.host.address}:${adapter.port}/mywebapp/test.html</url>
+                                        <url>http://${docker.host.address}:${tomcat.port}/mywebapp/test.html</url>
                                     </http>
                                     <time>120000</time>
                                     <shutdown>500</shutdown>

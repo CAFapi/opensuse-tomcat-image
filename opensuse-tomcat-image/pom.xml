@@ -106,7 +106,7 @@
                             <name>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-                                <assembly>
+                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>
                                         <dependencySets>

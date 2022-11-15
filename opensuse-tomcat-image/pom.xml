@@ -75,11 +75,28 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>start-docker-image</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-docker-image</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>docker-push</id>
                         <phase>deploy</phase>
                         <goals>
                             <goal>push</goal>
                         </goals>
+                        <configuration>
+                            <filter>opensuse-tomcat</filter>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
@@ -106,6 +123,51 @@
                                     <no_proxy>${env.NO_PROXY}</no_proxy>
                                 </args>
                             </build>
+                        </image>
+                        <image>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
+                            <build>
+                                <from>dev/cafapi/opensuse-tomcat:5.7.0-SNAPSHOT</from>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>src/test/test.html</source>
+                                                <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                                <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
+                                </args>
+                            </build>
+                            <run>
+                                <env>
+                                    <CATALINA_OPTS>
+                                        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+                                    </CATALINA_OPTS>
+                                </env>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <ports>
+                                    <port>${adapter.port}:8080</port>
+                                    <port>${adapter.debugport}:5005</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <method>GET</method>
+                                        <url>http://${docker.host.address}:${adapter.port}/mywebapp/test.html</url>
+                                    </http>
+                                    <time>120000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
                         </image>
                     </images>
                     <verbose>true</verbose>

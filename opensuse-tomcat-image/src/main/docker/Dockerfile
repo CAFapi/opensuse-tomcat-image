@@ -103,7 +103,6 @@ RUN    groupadd -r tomcat -g ${GROUP_ID}
 RUN    useradd -u ${USER_ID} -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin \
         -c "Tomcat user" tomcat
 
-
 # Change CATALINA_HOME ownership to tomcat user and tomcat group on actual definition
 RUN   chown -R tomcat:tomcat ${CATALINA_HOME}
 RUN   chmod -R 400 ${CATALINA_HOME/conf}
@@ -115,6 +114,6 @@ ENV RUNAS_USER=tomcat
 CMD ["whoami"]
 
 EXPOSE 8080 8081 8443
-CMD ["/usr/share/tomcat/bin/catalina.sh", "run", "-security"]
+CMD ["catalina.sh", "run", "-security"]
 
 COPY --from=builder /wd/root/ /

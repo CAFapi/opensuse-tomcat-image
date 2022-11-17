@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2017-2022 Micro Focus or one of its affiliates.
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.github.cafapi.opensuse.tomcat</groupId>
+        <artifactId>opensuse-tomcat-image-aggregator</artifactId>
+        <version>5.7.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>openSUSE-Tomcat-base-image</artifactId>
+    <packaging>pom</packaging>
+    
+    <name>openSUSE Tomcat base image</name>
+    <properties>
+        <maven.install.skip>true</maven.install.skip>
+        <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cafapi.logging</groupId>
+            <artifactId>caf-logging-logback-access-converters</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cafapi.opensuse.tomcat</groupId>
+            <artifactId>caf-logging-tomcat-juli</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.34.0</version>
+                <executions>
+                    <execution>
+                        <id>docker-build</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>start-docker-image</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>stop-docker-image</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>docker-push</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <filter>opensuse-tomcat-base-image</filter>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>opensuse-tomcat-base-image</alias>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-base-image${dockerProjectVersion}</name>
+                            <build>
+                                <dockerFileDir>.</dockerFileDir>
+                                 <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <dependencySets>
+                                            <dependencySet>
+                                                <outputDirectory>/lib</outputDirectory>
+                                                <useTransitiveDependencies>false</useTransitiveDependencies>
+                                            </dependencySet>
+                                        </dependencySets>
+                                    </inline>
+                                </assembly>
+                                <args>
+                                    <!-- Enable internet access -->
+                                    <http_proxy>${env.HTTP_PROXY}</http_proxy>
+                                    <https_proxy>${env.HTTPS_PROXY}</https_proxy>
+                                    <no_proxy>${env.NO_PROXY}</no_proxy>
+                                </args>
+                            </build>
+                        </image>
+                        <image>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
+                            <build>
+                                <from>${dockerCafImagePrefix}opensuse-tomcat-base-image${dockerProjectVersion}</from>
+                                <assembly>
+                                    <basedir>/</basedir>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>src/test/resources/test.html</source>
+                                                <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                            <run>
+                                <log>
+                                    <enabled>true</enabled>
+                                </log>
+                                <ports>
+                                    <port>${tomcat.port}:8080</port>
+                                </ports>
+                                <wait>
+                                    <http>
+                                        <method>GET</method>
+                                        <url>http://${docker.host.address}:${tomcat.port}/mywebapp/test.html</url>
+                                    </http>
+                                    <time>120000</time>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                            </run>
+                        </image>
+                    </images>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

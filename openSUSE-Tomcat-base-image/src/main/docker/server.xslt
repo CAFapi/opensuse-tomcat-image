@@ -87,7 +87,7 @@
                     <Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true">
                     </Valve>
                 </Host>
-            </Engine>
-        </Service>-->
+            </Engine>-->
+        </Service>
     </xsl:template>
 </xsl:stylesheet>

@@ -125,39 +125,6 @@
                                 </args>
                             </build>
                         </image>
-                        <image>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
-                            <build>
-                                <from>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</from>
-                                <assembly>
-                                    <basedir>/</basedir>
-                                    <inline>
-                                        <files>
-                                            <file>
-                                                <source>src/test/resources/test.html</source>
-                                                <outputDirectory>usr/share/tomcat/webapps/mywebapp</outputDirectory>
-                                            </file>
-                                        </files>
-                                    </inline>
-                                </assembly>
-                            </build>
-                            <run>
-                                <log>
-                                    <enabled>true</enabled>
-                                </log>
-                                <ports>
-                                    <port>${tomcat.port}:8080</port>
-                                </ports>
-                                <wait>
-                                    <http>
-                                        <method>GET</method>
-                                        <url>http://${docker.host.address}:${tomcat.port}/mywebapp/test.html</url>
-                                    </http>
-                                    <time>120000</time>
-                                    <shutdown>500</shutdown>
-                                </wait>
-                            </run>
-                        </image>
                     </images>
                     <verbose>true</verbose>
                 </configuration>

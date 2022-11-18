@@ -40,6 +40,9 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
 
+# Copy a new lib folder with thirdparty jars for logging implementation to tomcat lib folder
+COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
+
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
 RUN cp $TOMCAT_CONF_DIR/server.xml .

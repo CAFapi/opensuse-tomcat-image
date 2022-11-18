@@ -23,7 +23,7 @@
         <artifactId>opensuse-tomcat-image-aggregator</artifactId>
         <version>5.7.0-SNAPSHOT</version>
     </parent>
-    <artifactId>openSUSE-Tomcat-base-image</artifactId>
+    <artifactId>opensuse-tomcat-base-image</artifactId>
     <packaging>pom</packaging>
     
     <name>openSUSE Tomcat base image</name>

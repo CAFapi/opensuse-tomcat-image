@@ -53,15 +53,7 @@
     setup-tomcat-ssl-cert.sh TLS section end </xsl:comment><xsl:text>
     </xsl:text>
     </xsl:template>
-
-    <!-- Override the specified access logging element -->
-<!--    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
-        <xsl:copy>
-            <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
-            <xsl:attribute name="quiet">true</xsl:attribute>
-        </xsl:copy>
-    </xsl:template>-->
-
+    
     <!-- Add an ErrorReportValve to stop display of stack trace and server info in error pages -->
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']">
         <xsl:copy>
@@ -82,12 +74,13 @@
                     <xsl:value-of select="Connector[@port='8080']/@connectionTimeout" />
                 </xsl:attribute>
             </Connector>
-<!--            <Engine name="CatalinaAdmin" defaultHost="localhost">
+            <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true">
-                    </Valve>
+                    <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
+                           prefix="localhost_access_log" suffix=".txt"
+                           pattern="%h %l %u %t &quot;%r&quot; %s %b" />
                 </Host>
-            </Engine>-->
+            </Engine>
         </Service>
     </xsl:template>
 </xsl:stylesheet>

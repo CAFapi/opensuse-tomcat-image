@@ -17,6 +17,9 @@
 # Docker registry
 ARG DOCKER_HUB_PUBLIC=docker.io
 
+#OpenSUSE Tomcat Base image
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-base-image-5.7.0-US590035a-SNAPSHOT AS base-image
+
 #
 # Preliminary image that downloads Tomcat and makes some modifications
 #

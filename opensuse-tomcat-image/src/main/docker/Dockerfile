@@ -31,9 +31,6 @@ ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
 ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
 
-ARG USER_ID=${TOMCAT_USER_ID:-1000}
-ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
-
 # Extract Tomcat and remove unwanted web applications
 COPY apache-tomcat-9.0.64.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
@@ -72,6 +69,9 @@ COPY startup.d/ root/startup/startup.d/
 RUN chmod +x root/startup/startup.d/*
 
 # Tomcat user and group created
+ARG USER_ID=${TOMCAT_USER_ID:-1000}
+ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
+
 RUN groupadd -r tomcat -g ${GROUP_ID}
 RUN useradd -u ${USER_ID} -g tomcat -d ${TOMCAT_ROOT_DIR} -s /sbin/nologin \
             -c "Tomcat user" tomcat

@@ -72,12 +72,12 @@ COPY startup.d/ root/startup/startup.d/
 RUN chmod +x root/startup/startup.d/*
 
 # Tomcat user and group created
-RUN    groupadd -r tomcat -g ${GROUP_ID}
-RUN    useradd -u ${USER_ID} -g tomcat -d ${TOMCAT_ROOT_DIR} -s /sbin/nologin \
-        -c "Tomcat user" tomcat
+RUN groupadd -r tomcat -g ${GROUP_ID}
+RUN useradd -u ${USER_ID} -g tomcat -d ${TOMCAT_ROOT_DIR} -s /sbin/nologin \
+            -c "Tomcat user" tomcat
 
 # Change CATALINA_HOME ownership to tomcat user and tomcat group
-RUN   chown -R tomcat:tomcat ${TOMCAT_ROOT_DIR}
+RUN chown -R tomcat:tomcat ${TOMCAT_ROOT_DIR}
 
 # Give write access to log file
 RUN chmod -R 300 ${TOMCAT_ROOT_DIR}/logs
@@ -99,19 +99,17 @@ ARG USER_ID=${TOMCAT_USER_ID:-1000}
 ARG GROUP_ID=${TOMCAT_GROUP_ID:-1000}
 
 # Tomcat user and group created again on actual image definition to run as user.
-RUN    groupadd -r tomcat -g ${GROUP_ID}
-RUN    useradd -u ${USER_ID} -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin \
-        -c "Tomcat user" tomcat
+RUN groupadd -r tomcat -g ${GROUP_ID}
+RUN useradd -u ${USER_ID} -g tomcat -d ${CATALINA_HOME} -s /sbin/nologin \
+            -c "Tomcat user" tomcat
 
 # Change CATALINA_HOME ownership to tomcat user and tomcat group on actual definition
-RUN   chown -R tomcat:tomcat ${CATALINA_HOME}
-RUN   chmod -R 400 ${CATALINA_HOME/conf}
+RUN chown -R tomcat:tomcat ${CATALINA_HOME}
+RUN chmod -R 400 ${CATALINA_HOME/conf}
 
 HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 
 ENV RUNAS_USER=tomcat
-
-CMD ["whoami"]
 
 EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]

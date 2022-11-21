@@ -114,6 +114,6 @@ ENV RUNAS_USER=tomcat
 CMD ["whoami"]
 
 EXPOSE 8080 8081 8443
-CMD ["catalina.sh", "run", "-security"]
+CMD ["catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /

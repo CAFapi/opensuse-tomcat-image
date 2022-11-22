@@ -107,6 +107,6 @@ HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 ENV RUNAS_USER=tomcat
 
 EXPOSE 8080 8081 8443
-CMD ["catalina.sh", "run"]
+CMD ["/usr/share/tomcat/bin/catalina.sh", "run"]
 
 COPY --from=builder /wd/root/ /

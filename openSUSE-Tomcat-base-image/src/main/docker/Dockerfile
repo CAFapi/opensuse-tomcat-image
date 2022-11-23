@@ -38,7 +38,7 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.64.tar.gz && \
     mv apache-tomcat-9.0.64 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
+    rm -rf docs/ examples/ host-manager/ manager/
 
 # Copy a new lib folder with thirdparty jars for logging implementation to tomcat lib folder
 COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/

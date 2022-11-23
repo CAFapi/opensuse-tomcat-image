@@ -19,65 +19,36 @@ ARG DOCKER_HUB_PUBLIC=docker.io
 
 #OpenSUSE Tomcat Base image
 FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-base-image-5.7.0-US590035a-SNAPSHOT AS base-image
+RUN zypper -n install xsltproc
+ENV CATALINA_HOME /usr/share/tomcat
 
-#
-# Preliminary image that downloads Tomcat and makes some modifications
-#
-FROM ${DOCKER_HUB_PUBLIC}/opensuse/leap:latest AS builder
-RUN zypper -n install gzip tar xsltproc
-WORKDIR /wd
+ENV CATALINA_CONF_DIR $CATALINA_HOME/conf
+ENV CATALINA_BIN_DIR $CATALINA_HOME/bin
+ENV CATALINA_LIB_DIR $CATALINA_HOME/lib
 
-ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
-    TOMCAT_DIR_NAME=tomcat
-ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
-ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
-ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
-ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
+ENV PATH $CATALINA_BIN_DIR:$PATH
 
-# Extract Tomcat and remove unwanted web applications
-COPY apache-tomcat-9.0.64.tar.gz .
-RUN mkdir -p $TOMCAT_PARENT_DIR && \
-    cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.64.tar.gz && \
-    mv apache-tomcat-9.0.64 $TOMCAT_DIR_NAME && \
-    cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
+WORKDIR $CATALINA_HOME
+
+RUN rm -rf /wd/root/usr/share/tomcat/conf/logging.properties
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
-COPY logback*.xml $TOMCAT_CONF_DIR/
+COPY logback*.xml $CATALINA_CONF_DIR/
 
 # Copy new setenv.bat and setenv.sh to tomcat bin folder
-COPY setenv.* $TOMCAT_BIN_DIR/
+COPY setenv.* $CATALINA_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
-COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
-RUN mv $TOMCAT_LIB_DIR/caf-logging-tomcat-juli-*.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
+COPY /maven/lib/*.jar $CATALINA_LIB_DIR/
+WORKDIR $CATALINA_HOME
+RUN mv lib/caf-logging-tomcat-juli-5.7.0-SNAPSHOT.jar bin/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
-RUN cp $TOMCAT_CONF_DIR/server.xml .
-RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
-
-# Add in the startup scripts
-COPY startup.d/ root/startup/startup.d/
-RUN chmod +x root/startup/startup.d/*
-
-#
-# The actual image definition
-#
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
-
-RUN zypper -n refresh && \
-    zypper -n update && \
-    zypper -n clean --all
-
-ENV CATALINA_HOME /usr/share/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
-WORKDIR $CATALINA_HOME
+RUN cp $CATALINA_CONF_DIR/server.xml .
+RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt server.xml
 
 HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 
 EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
-
-COPY --from=builder /wd/root/ /

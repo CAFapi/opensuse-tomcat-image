@@ -25,6 +25,12 @@
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
+    
+        <xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080']">
+        <xsl:copy>
+            <xsl:apply-templates select="@* | node()"/>
+        </xsl:copy>
+    </xsl:template>
 
     <!-- Override the specified access logging element -->
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
@@ -33,33 +39,13 @@
             <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
     </xsl:template>
-
-<!--     Add an ErrorReportValve to stop display of stack trace and server info in error pages 
-    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']">
+    
+    <!-- Override the logging valve from the base image -->
+    <xsl:template match="/Server/Service[@name='CatalinaAdmin']/Engine[@name='CatalinaAdmin']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-            <Valve className="org.apache.catalina.valves.ErrorReportValve" showReport="false" showServerInfo="false" />
+            <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
+            <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
-    </xsl:template>-->
-
-    <!-- Add an administration port -->
-    <xsl:template match="/Server/Service[@name='Catalina']">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
-        <Service name="CatalinaAdmin">
-            <Connector port="8081" protocol="HTTP/1.1">
-                 <!--Copy the connection timeout from the main connector--> 
-                <xsl:attribute name="connectionTimeout">
-                    <xsl:value-of select="Connector[@port='8080']/@connectionTimeout" />
-                </xsl:attribute>
-            </Connector>
-            <Engine name="CatalinaAdmin" defaultHost="localhost">
-                <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="ch.qos.logback.access.tomcat.LogbackValve" quiet="true">
-                    </Valve>
-                </Host>
-            </Engine>
-        </Service>
     </xsl:template>
+    
 </xsl:stylesheet>

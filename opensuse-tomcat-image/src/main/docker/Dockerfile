@@ -40,7 +40,7 @@ COPY setenv.* $CATALINA_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $CATALINA_LIB_DIR/
-WORKDIR $CATALINA_HOME
+#WORKDIR $CATALINA_HOME
 RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file

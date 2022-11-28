@@ -30,7 +30,7 @@ ENV PATH $CATALINA_BIN_DIR:$PATH
 
 WORKDIR $CATALINA_HOME
 
-RUN rm -rf /wd/root/usr/share/tomcat/conf/logging.properties
+RUN rm -rf $CATALINA_CONF_DIR/logging.properties
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $CATALINA_CONF_DIR/
@@ -40,15 +40,10 @@ COPY setenv.* $CATALINA_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $CATALINA_LIB_DIR/
-#WORKDIR $CATALINA_HOME
 RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
-RUN cp $CATALINA_CONF_DIR/server.xml .
-RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt server.xml
+RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
 
-HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
-
-EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]

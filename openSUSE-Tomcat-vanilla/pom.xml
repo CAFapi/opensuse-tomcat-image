@@ -23,10 +23,10 @@
         <artifactId>opensuse-tomcat-image-aggregator</artifactId>
         <version>5.7.0-SNAPSHOT</version>
     </parent>
-    <artifactId>opensuse-tomcat-base-image</artifactId>
+    <artifactId>opensuse-tomcat-vanilla</artifactId>
     <packaging>pom</packaging>
     
-    <name>openSUSE Tomcat base image</name>
+    <name>openSUSE Tomcat vanilla</name>
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>

@@ -23,10 +23,10 @@
         <artifactId>opensuse-tomcat-image-aggregator</artifactId>
         <version>5.7.0-SNAPSHOT</version>
     </parent>
-    <artifactId>opensuse-tomcat-vanilla</artifactId>
+    <artifactId>opensuse-tomcat-jul</artifactId>
     <packaging>pom</packaging>
     
-    <name>openSUSE Tomcat vanilla</name>
+    <name>openSUSE Tomcat jul</name>
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
@@ -74,15 +74,15 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <filter>opensuse-tomcat-vanilla</filter>
+                            <filter>opensuse-tomcat-jul</filter>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <images>
                         <image>
-                            <alias>opensuse-tomcat-vanilla</alias>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat-vanilla${dockerProjectVersion}</name>
+                            <alias>opensuse-tomcat-jul</alias>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
                                  <assembly>
@@ -107,7 +107,7 @@
                         <image>
                             <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerCafImagePrefix}opensuse-tomcat-vanilla${dockerProjectVersion}</from>
+                                <from>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion}</from>
                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>

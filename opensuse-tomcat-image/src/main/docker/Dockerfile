@@ -18,7 +18,7 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #OpenSUSE Tomcat Base image
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-base-image-5.7.0-US590035a-SNAPSHOT AS base-image
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-jul-5.7.0-US590035a-SNAPSHOT AS builder
 RUN zypper -n install xsltproc
 ENV CATALINA_HOME /usr/share/tomcat
 
@@ -47,3 +47,5 @@ COPY server.xslt .
 RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
 
 CMD ["catalina.sh", "run"]
+
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3

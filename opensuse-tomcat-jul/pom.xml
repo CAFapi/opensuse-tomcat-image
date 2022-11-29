@@ -82,7 +82,7 @@
                     <images>
                         <image>
                             <alias>opensuse-tomcat-jul</alias>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion</name>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
                                  <assembly>

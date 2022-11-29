@@ -18,7 +18,7 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #OpenSUSE Tomcat Base image
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-jul-5.7.0-US590035a-SNAPSHOT AS builder
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-vanilla-5.7.0-US590035a-SNAPSHOT AS builder
 RUN zypper -n install xsltproc
 ENV CATALINA_HOME /usr/share/tomcat
 

@@ -18,7 +18,8 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #OpenSUSE Tomcat Base image
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-tomcat-jul-5.7.0-US590035a-SNAPSHOT AS builder
+ARG JUL_IMAGE
+FROM $JUL_IMAGE AS builder
 RUN zypper -n install xsltproc
 ENV CATALINA_HOME /usr/share/tomcat
 
@@ -46,6 +47,12 @@ RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 COPY server.xslt .
 RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
 
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
+
+RUN zypper -n refresh && \
+    zypper -n update && \
+    zypper -n clean --all
+
 CMD ["catalina.sh", "run"]
 
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
+COPY --from=builder /usr/share/tomcat /

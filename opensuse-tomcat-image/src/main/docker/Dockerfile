@@ -53,6 +53,10 @@ RUN zypper -n refresh && \
     zypper -n update && \
     zypper -n clean --all
 
+ENV CATALINA_HOME /usr/share/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+WORKDIR $CATALINA_HOME
+
 CMD ["catalina.sh", "run"]
 
-COPY --from=builder /usr/share/tomcat /
+COPY --from=builder /usr /usr

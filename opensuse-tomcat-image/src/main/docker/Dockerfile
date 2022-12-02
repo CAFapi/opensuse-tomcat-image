@@ -46,6 +46,10 @@ RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
 RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
+ 
+# Add in the startup scripts
+COPY startup.d/ root/startup/startup.d/
+RUN chmod +x root/startup/startup.d/*
 
 FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
 

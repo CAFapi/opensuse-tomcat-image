@@ -1,8 +1,32 @@
 # openSUSE with Java and Tomcat image
 
-This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) to build a pre-configured Tomcat Docker image.
+This project consists of 2 separate images which build on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) 
+to build a pre-configured Tomcat Docker image.
 
-It can be used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
+The images within this project are: 
+- Opensuse-Tomcat-Jul
+- Opensuse-Tomcat-Image
+
+### Opensuse-Tomcat-Jul
+
+This image defaults to use the native logging - Java Util Logging, t can be used as a base image for hosting web projects which use 
+Java technologies such as Java Servlets or JavaServer Pages that are not compatible with Logback logging.
+
+Here is an example Dockerfile which uses this image as a base:
+
+    FROM cafapi/opensuse-tomcat-jul:latest AS builder
+
+    COPY --from=builder $CATALINA_HOME $CATALINA_HOME
+
+The derived image is expected to supply the web application being deployed, which should be copied into the parents default directory, 
+tomcat. The administration application must supply a /healthcheck endpoint which can be used by Docker, or the container orchestrator, 
+to check on the health of the service when it is running. The administration application may optionally supply other administration or 
+operations functionality, to assist with debugging for example, but it is required to supply a healthcheck endpoint.
+
+### Opensuse-Tomcat-Image
+
+This image builds upon opensuse-tomcat-jul however it moves away from the default Java Util Logging to utilise Logback logging, it can be
+used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
 
 Here is an example Dockerfile which uses this image as a base:
 
@@ -100,16 +124,3 @@ The script then reads the database details from a set of environment variables w
 | `SERVICE_`DATABASE_PASSWORD | The password to use when establishing the connection to the PostgreSQL server.                         |
 | `SERVICE_`DATABASE_APPNAME  | The application name that PostgreSQL should associate with the connection for logging and monitoring.  |
 | `SERVICE_`DATABASE_NAME     | The name of the PostgreSQL database to be created.                                                     |
-
-### Opensuse-Tomcat-Jul
-
-This image defaults to use the native logging - Java Util Logging, providing two options, one image utilising logback and one utilising 
-Java Util Logging.
-
-No other changes from the above image have been made.
-
-Here is an example Dockerfile which uses this image as a base:
-
-    FROM cafapi/opensuse-tomcat-jul:latest AS builder
-
-    COPY --from=builder $CATALINA_HOME $CATALINA_HOME

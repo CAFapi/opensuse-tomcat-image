@@ -105,7 +105,7 @@
                             </build>
                         </image>
                         <image>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion}</name>
                             <build>
                                 <from>${dockerCafImagePrefix}opensuse-tomcat-jul${dockerProjectVersion}</from>
                                 <assembly>

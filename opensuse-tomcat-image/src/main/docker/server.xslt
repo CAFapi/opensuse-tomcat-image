@@ -26,7 +26,7 @@
         </xsl:copy>
     </xsl:template>
     
-        <xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080']">
+    <xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080']">
         <xsl:copy>
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>

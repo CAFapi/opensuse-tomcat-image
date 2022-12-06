@@ -60,4 +60,4 @@ WORKDIR $CATALINA_HOME
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /startup/startup.d /startup/startup.d 
-COPY --from=builder /usr/share/tomcat /usr/share/tomcat
+COPY --from=builder $CATALINA_HOME $CATALINA_HOME

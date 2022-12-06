@@ -100,3 +100,16 @@ The script then reads the database details from a set of environment variables w
 | `SERVICE_`DATABASE_PASSWORD | The password to use when establishing the connection to the PostgreSQL server.                         |
 | `SERVICE_`DATABASE_APPNAME  | The application name that PostgreSQL should associate with the connection for logging and monitoring.  |
 | `SERVICE_`DATABASE_NAME     | The name of the PostgreSQL database to be created.                                                     |
+
+### Opensuse-Tomcat-Jul
+
+This image defaults to use the native logging - Java Util Logging, providing two options, one image utilising logback and one utilising 
+Java Util Logging.
+
+No other changes from the above image have been made.
+
+Here is an example Dockerfile which uses this image as a base:
+
+    FROM cafapi/opensuse-tomcat-jul:latest AS builder
+
+    COPY --from=builder $CATALINA_HOME $CATALINA_HOME

@@ -3,32 +3,18 @@
 This project consists of 2 separate images which build on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) 
 to build two pre-configured Tomcat.
 
-The images within this project are: 
-- Opensuse-Tomcat-Jul
-- Opensuse-Tomcat-Image
+One that uses CAF Logging framework and the other that relies on Tomcat Jul logging.
 
-### Opensuse-Tomcat-Jul
+Each one can be used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
 
-This image defaults to use the native logging - Java Util Logging, it can be used as a base image for hosting web projects which use 
-Java technologies such as Java Servlets or JavaServer Pages.
+Here is an example Dockerfile which uses the image with Tomcat Jul logging as a base:
 
-Here is an example Dockerfile which uses this image as a base:
+    FROM cafapi/opensuse-tomcat-jul:latest
 
-    FROM cafapi/opensuse-tomcat-jul:latest AS builder
+    COPY demowebapp/ $CATALINA_HOME/webapps/demowebapp/
+    COPY demowebapp-admin/ $CATALINA_HOME/adminapps/ROOT/
 
-    COPY --from=builder $CATALINA_HOME $CATALINA_HOME
-
-The derived image is expected to supply the web application being deployed, which should be copied into the parents default directory, 
-tomcat. The administration application must supply a /healthcheck endpoint which can be used by Docker, or the container orchestrator, 
-to check on the health of the service when it is running. The administration application may optionally supply other administration or 
-operations functionality, to assist with debugging for example, but it is required to supply a healthcheck endpoint.
-
-### Opensuse-Tomcat-Image
-
-This image builds upon opensuse-tomcat-jul however it moves away from the default Java Util Logging to utilise Logback logging, it can be
-used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
-
-Here is an example Dockerfile which uses this image as a base:
+Here is an example Dockerfile which uses the image with CAF Logging as a base:
 
     FROM cafapi/opensuse-tomcat:latest
 

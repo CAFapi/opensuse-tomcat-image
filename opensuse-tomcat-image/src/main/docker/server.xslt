@@ -39,7 +39,6 @@
             <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
     </xsl:template>
-    
     <!-- Override the logging valve from the base image -->
     <xsl:template match="/Server/Service[@name='CatalinaAdmin']/Engine[@name='CatalinaAdmin']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
@@ -47,5 +46,4 @@
             <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
     </xsl:template>
-    
 </xsl:stylesheet>

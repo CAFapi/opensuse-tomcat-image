@@ -1,7 +1,7 @@
 # openSUSE with Java and Tomcat image
 
 This project consists of 2 separate images which build on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) 
-to build a pre-configured Tomcat Docker image.
+to build two pre-configured Tomcat.
 
 The images within this project are: 
 - Opensuse-Tomcat-Jul
@@ -10,7 +10,7 @@ The images within this project are:
 ### Opensuse-Tomcat-Jul
 
 This image defaults to use the native logging - Java Util Logging, it can be used as a base image for hosting web projects which use 
-Java technologies such as Java Servlets or JavaServer Pages that are not compatible with Logback logging.
+Java technologies such as Java Servlets or JavaServer Pages.
 
 Here is an example Dockerfile which uses this image as a base:
 

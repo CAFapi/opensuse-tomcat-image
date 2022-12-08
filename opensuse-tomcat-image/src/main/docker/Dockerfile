@@ -57,6 +57,9 @@ ENV CATALINA_HOME /usr/share/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 WORKDIR $CATALINA_HOME
 
+HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
+
+EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
 COPY --from=builder /startup/startup.d /startup/startup.d 

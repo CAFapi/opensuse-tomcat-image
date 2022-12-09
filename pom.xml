@@ -55,7 +55,7 @@
 
     <modules>
         <module>caf-logging-tomcat-juli</module>
-        <module>opensuse-tomcat-jul</module>
+        <module>opensuse-tomcat-juli</module>
         <module>opensuse-tomcat-image</module>
     </modules>
 

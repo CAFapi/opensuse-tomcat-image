@@ -18,8 +18,8 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #OpenSUSE Tomcat Base image
-ARG JUL_IMAGE
-FROM $JUL_IMAGE AS builder
+ARG JULI_IMAGE
+FROM $JULI_IMAGE AS builder
 RUN zypper -n install xsltproc
 ENV CATALINA_HOME /usr/share/tomcat
 

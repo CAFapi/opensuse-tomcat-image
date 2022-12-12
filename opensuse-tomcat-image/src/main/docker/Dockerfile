@@ -47,6 +47,9 @@ RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 COPY server.xslt .
 RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
 
+#
+# The actual image definition
+#
 FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
 
 RUN zypper -n refresh && \

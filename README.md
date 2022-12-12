@@ -7,7 +7,7 @@ One that uses CAF Logging framework and the other that relies on Tomcat Juli log
 
 Each one can be used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
 
-Here is an example Dockerfile which uses the image with Tomcat Jul logging as a base:
+Here is an example Dockerfile which uses the image with Tomcat Juli logging as a base:
 
     FROM cafapi/opensuse-tomcat-juli:latest
 

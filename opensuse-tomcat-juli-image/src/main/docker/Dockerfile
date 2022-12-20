@@ -28,8 +28,6 @@ ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
     TOMCAT_DIR_NAME=tomcat
 ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
-ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
-ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
 
 # Extract Tomcat and remove unwanted web applications
 COPY apache-tomcat-9.0.64.tar.gz .
@@ -40,8 +38,10 @@ RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 
-# Copy a new lib folder with thirdparty jars for logging implementation to tomcat lib folder
-COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
+# Overwrite the main logging configuration file
+# (It is being copied to the working folder first, and then overwritten using cp, in order to retain the original file's permissions.)
+COPY logging.properties .
+RUN cp logging.properties $TOMCAT_CONF_DIR
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .

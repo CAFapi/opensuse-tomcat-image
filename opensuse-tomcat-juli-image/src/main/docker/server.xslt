@@ -54,6 +54,23 @@
     </xsl:text>
     </xsl:template>
     
+    <!-- Override the specified access logging element -->
+    <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
+        <xsl:copy>
+            <xsl:attribute name="className">
+                <xsl:value-of select="@className" />
+            </xsl:attribute>
+            <xsl:attribute name="directory">/dev</xsl:attribute>
+            <xsl:attribute name="prefix">stdout</xsl:attribute>
+            <xsl:attribute name="rotatable">false</xsl:attribute>
+            <xsl:attribute name="pattern">
+                <xsl:value-of select="@pattern" />
+            </xsl:attribute>
+            <xsl:attribute name="encoding">UTF-8</xsl:attribute>
+            <xsl:attribute name="buffered">false</xsl:attribute>
+        </xsl:copy>
+    </xsl:template>
+
     <!-- Add an ErrorReportValve to stop display of stack trace and server info in error pages -->
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']">
         <xsl:copy>
@@ -76,9 +93,16 @@
             </Connector>
             <Engine name="CatalinaAdmin" defaultHost="localhost">
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
-                    <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-                           prefix="localhost_access_log" suffix=".txt"
-                           pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+                    <Valve className="org.apache.catalina.valves.AccessLogValve"
+                           directory="/dev"
+                           prefix="stdout"
+                           rotatable="false"
+                           encoding="UTF-8"
+                           buffered="false">
+                        <xsl:attribute name="pattern"><xsl:value-of
+                            select="Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']/@pattern" />
+                        </xsl:attribute>
+                    </Valve>
                 </Host>
             </Engine>
         </Service>

@@ -47,6 +47,12 @@ RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
 COPY server.xslt .
 RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
 
+ENV WDBUILDER = /wd/root
+
+RUN mkdir -p $WDBUILDER/tomcat && \
+    cp -R /startup/startup.d $WDBUILDER && \
+    cp -R $CATALINA_HOME $WDBUILDER/tomcat
+
 #
 # The actual image definition
 #
@@ -65,5 +71,8 @@ HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"]
 
-COPY --from=builder /startup/startup.d /startup/startup.d 
-COPY --from=builder $CATALINA_HOME $CATALINA_HOME
+#COPY --from=builder /startup/startup.d /startup/startup.d 
+#COPY --from=builder $CATALINA_HOME $CATALINA_HOME
+
+COPY --from=builder $WDBUILDER /tony
+COPY --from=builder $WDBUILDER /

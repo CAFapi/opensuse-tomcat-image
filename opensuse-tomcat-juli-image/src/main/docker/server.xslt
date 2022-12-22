@@ -61,7 +61,7 @@
                 <xsl:value-of select="@className" />
             </xsl:attribute>
             <xsl:attribute name="directory">/dev</xsl:attribute>
-            <xsl:attribute name="prefix">stdout</xsl:attribute>
+            <xsl:attribute name="prefix">stderr</xsl:attribute>
             <xsl:attribute name="rotatable">false</xsl:attribute>
             <xsl:attribute name="pattern">
                 <xsl:value-of select="@pattern" />
@@ -95,7 +95,7 @@
                 <Host name="localhost" appBase="adminapps" autoDeploy="false">
                     <Valve className="org.apache.catalina.valves.AccessLogValve"
                            directory="/dev"
-                           prefix="stdout"
+                           prefix="stderr"
                            rotatable="false"
                            encoding="UTF-8"
                            buffered="false">

@@ -49,9 +49,9 @@ RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/ser
 
 ENV WDBUILDER = /wd/root/
 
-RUN mkdir -p $WDBUILDER && \
+RUN mkdir -p $WDBUILDER/tomcat && \
     cp -R /startup/startup.d $WDBUILDER && \
-    cp -R $CATALINA_HOME $WDBUILDER
+    cp -R $CATALINA_HOME $WDBUILDER/tomcat
 
 #
 # The actual image definition

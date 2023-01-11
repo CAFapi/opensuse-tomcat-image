@@ -32,13 +32,6 @@
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
     </properties>
 
-    <dependencies>
-<!--        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>-->
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -85,17 +78,6 @@
                             <name>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-<!--                                 <assembly>
-                                    <basedir>/</basedir>
-                                    <inline>
-                                        <dependencySets>
-                                            <dependencySet>
-                                                <outputDirectory>/lib</outputDirectory>
-                                                <useTransitiveDependencies>false</useTransitiveDependencies>
-                                            </dependencySet>
-                                        </dependencySets>
-                                    </inline>
-                                </assembly>-->
                                 <args>
                                     <!-- Enable internet access -->
                                     <http_proxy>${env.HTTP_PROXY}</http_proxy>

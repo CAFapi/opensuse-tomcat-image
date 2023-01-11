@@ -70,5 +70,4 @@ HEALTHCHECK CMD curl --fail http://localhost:8081/healthcheck || exit 1
 EXPOSE 8080 8081 8443
 CMD ["catalina.sh", "run"] 
 
-COPY maven/ /lib/
 COPY --from=builder /wd/root/ /

@@ -33,10 +33,10 @@
     </properties>
 
     <dependencies>
-        <dependency>
+<!--        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -85,7 +85,7 @@
                             <name>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-                                 <assembly>
+<!--                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>
                                         <dependencySets>
@@ -95,7 +95,7 @@
                                             </dependencySet>
                                         </dependencySets>
                                     </inline>
-                                </assembly>
+                                </assembly>-->
                                 <args>
                                     <!-- Enable internet access -->
                                     <http_proxy>${env.HTTP_PROXY}</http_proxy>

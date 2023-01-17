@@ -25,21 +25,16 @@
             <xsl:apply-templates select="@* | node()"/>
         </xsl:copy>
     </xsl:template>
-    
-    <xsl:template match="/Server/Service[@name='Catalina']/Connector[@port='8080']">
-        <xsl:copy>
-            <xsl:apply-templates select="@* | node()"/>
-        </xsl:copy>
-    </xsl:template>
 
-    <!-- Override the specified access logging element -->
+    <!-- Override the main application access logging element -->
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
             <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>
             <xsl:attribute name="quiet">true</xsl:attribute>
         </xsl:copy>
     </xsl:template>
-    <!-- Override the logging valve from the base image -->
+
+    <!-- Override the admin application access logging element -->
     <xsl:template match="/Server/Service[@name='CatalinaAdmin']/Engine[@name='CatalinaAdmin']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
             <xsl:attribute name="className">ch.qos.logback.access.tomcat.LogbackValve</xsl:attribute>

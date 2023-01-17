@@ -18,46 +18,46 @@
 ARG DOCKER_HUB_PUBLIC=docker.io
 
 #
-# Preliminary image that downloads Tomcat and makes some modifications
+# Preliminary image, makes some modifications to the JULI image
 #
-FROM ${DOCKER_HUB_PUBLIC}/opensuse/leap:latest AS builder
-RUN zypper -n install gzip tar xsltproc
-WORKDIR /wd
+ARG JULI_IMAGE
+FROM $JULI_IMAGE AS builder
 
-ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
-    TOMCAT_DIR_NAME=tomcat
-ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
-ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
-ENV TOMCAT_BIN_DIR $TOMCAT_ROOT_DIR/bin
-ENV TOMCAT_LIB_DIR $TOMCAT_ROOT_DIR/lib
+RUN zypper -n install xsltproc
 
-# Extract Tomcat and remove unwanted web applications
-COPY apache-tomcat-9.0.64.tar.gz .
-RUN mkdir -p $TOMCAT_PARENT_DIR && \
-    cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.64.tar.gz && \
-    mv apache-tomcat-9.0.64 $TOMCAT_DIR_NAME && \
-    cd $TOMCAT_ROOT_DIR/webapps && \
-    rm -rf $TOMCAT_CONF_DIR/logging.properties docs/ examples/ host-manager/ manager/
+ENV CATALINA_HOME /usr/share/tomcat
+ENV CATALINA_CONF_DIR $CATALINA_HOME/conf
+ENV CATALINA_BIN_DIR $CATALINA_HOME/bin
+ENV CATALINA_LIB_DIR $CATALINA_HOME/lib
+
+ENV PATH $CATALINA_BIN_DIR:$PATH
+
+WORKDIR $CATALINA_HOME
+
+RUN rm -rf $CATALINA_CONF_DIR/logging.properties \
+           /startup/startup.d/setup-loglevel.sh
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
-COPY logback*.xml $TOMCAT_CONF_DIR/
+COPY logback*.xml $CATALINA_CONF_DIR/
 
 # Copy new setenv.bat and setenv.sh to tomcat bin folder
-COPY setenv.* $TOMCAT_BIN_DIR/
+COPY setenv.* $CATALINA_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
-COPY /maven/lib/*.jar $TOMCAT_LIB_DIR/
-RUN mv $TOMCAT_LIB_DIR/caf-logging-tomcat-juli-*.jar  $TOMCAT_BIN_DIR/tomcat-juli.jar
+COPY /maven/lib/*.jar $CATALINA_LIB_DIR/
+RUN mv $CATALINA_LIB_DIR/caf-logging-tomcat-juli-*.jar $CATALINA_BIN_DIR/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
-RUN cp $TOMCAT_CONF_DIR/server.xml .
-RUN xsltproc -o $TOMCAT_CONF_DIR/server.xml server.xslt server.xml
+RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml && \
+    rm server.xslt
 
-# Add in the startup scripts
-COPY startup.d/ root/startup/startup.d/
-RUN chmod +x root/startup/startup.d/*
+ENV WDBUILDER /wd/root
+
+RUN mkdir -p $WDBUILDER/usr/share && \
+    mkdir -p $WDBUILDER/startup/startup.d && \
+    cp /startup/startup.d/setup-tomcat* $WDBUILDER/startup/startup.d && \
+    cp -R $CATALINA_HOME $WDBUILDER/usr/share
 
 #
 # The actual image definition

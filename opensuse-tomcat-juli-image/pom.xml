@@ -27,38 +27,15 @@
         <version>5.7.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>opensuse-tomcat-image</artifactId>
+    <artifactId>opensuse-tomcat-juli-image</artifactId>
     <packaging>pom</packaging>
-
-    <name>openSUSE Tomcat image</name>
+    
+    <name>openSUSE Tomcat JULI image</name>
 
     <properties>
         <maven.install.skip>true</maven.install.skip>
         <DOCKER_HUB_PUBLIC>${dockerHubPublic}</DOCKER_HUB_PUBLIC>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-access</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafapi.logging</groupId>
-            <artifactId>caf-logging-logback-access-converters</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cafapi.opensuse.tomcat</groupId>
-            <artifactId>caf-logging-tomcat-juli</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-    </dependencies>
 
     <build>
         <plugins>
@@ -95,43 +72,29 @@
                             <goal>push</goal>
                         </goals>
                         <configuration>
-                            <filter>opensuse-tomcat</filter>
+                            <filter>opensuse-tomcat-juli</filter>
                         </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <images>
                         <image>
-                            <alias>opensuse-tomcat</alias>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</name>
+                            <alias>opensuse-tomcat-juli</alias>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-                                 <assembly>
-                                    <basedir>/</basedir>
-                                    <inline>
-                                        <dependencySets>
-                                            <dependencySet>
-                                                <outputDirectory>/lib</outputDirectory>
-                                                <useTransitiveDependencies>false</useTransitiveDependencies>
-                                            </dependencySet>
-                                        </dependencySets>
-                                    </inline>
-                                </assembly>
                                 <args>
                                     <!-- Enable internet access -->
                                     <http_proxy>${env.HTTP_PROXY}</http_proxy>
                                     <https_proxy>${env.HTTPS_PROXY}</https_proxy>
                                     <no_proxy>${env.NO_PROXY}</no_proxy>
-
-                                    <!-- Pass in opensuse-tomcat-juli image as param -->
-                                    <JULI_IMAGE>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</JULI_IMAGE>
                                 </args>
                             </build>
                         </image>
                         <image>
-                            <name>${dockerCafImagePrefix}opensuse-tomcat-test${dockerProjectVersion}</name>
+                            <name>${dockerCafImagePrefix}opensuse-tomcat-juli-test${dockerProjectVersion}</name>
                             <build>
-                                <from>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</from>
+                                <from>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</from>
                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>

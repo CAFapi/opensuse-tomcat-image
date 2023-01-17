@@ -17,12 +17,15 @@
 # Docker registry
 ARG DOCKER_HUB_PUBLIC=docker.io
 
-#OpenSUSE Tomcat Base image
+#
+# Preliminary image, makes some modifications to the JULI image
+#
 ARG JULI_IMAGE
 FROM $JULI_IMAGE AS builder
-RUN zypper -n install xsltproc
-ENV CATALINA_HOME /usr/share/tomcat
 
+RUN zypper -n install xsltproc
+
+ENV CATALINA_HOME /usr/share/tomcat
 ENV CATALINA_CONF_DIR $CATALINA_HOME/conf
 ENV CATALINA_BIN_DIR $CATALINA_HOME/bin
 ENV CATALINA_LIB_DIR $CATALINA_HOME/lib
@@ -31,7 +34,8 @@ ENV PATH $CATALINA_BIN_DIR:$PATH
 
 WORKDIR $CATALINA_HOME
 
-RUN rm -rf $CATALINA_CONF_DIR/logging.properties
+RUN rm -rf $CATALINA_CONF_DIR/logging.properties \
+           /startup/startup.d/setup-loglevel.sh
 
 # Copy new logback.xml and logback-access.xml to tomcat conf folder for logback implementation
 COPY logback*.xml $CATALINA_CONF_DIR/
@@ -41,16 +45,18 @@ COPY setenv.* $CATALINA_BIN_DIR/
 
 # Copy a new lib folder with thirdparty jars for logback implementation to tomcat lib folder
 COPY /maven/lib/*.jar $CATALINA_LIB_DIR/
-RUN mv lib/caf-logging-tomcat-juli-*.jar bin/tomcat-juli.jar
+RUN mv $CATALINA_LIB_DIR/caf-logging-tomcat-juli-*.jar $CATALINA_BIN_DIR/tomcat-juli.jar
 
 # Apply the specified transform to the server.xml file
 COPY server.xslt .
-RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml
+RUN xsltproc -o $CATALINA_CONF_DIR/server.xml server.xslt $CATALINA_CONF_DIR/server.xml && \
+    rm server.xslt
 
 ENV WDBUILDER /wd/root
 
 RUN mkdir -p $WDBUILDER/usr/share && \
-    cp -R /startup $WDBUILDER && \
+    mkdir -p $WDBUILDER/startup/startup.d && \
+    cp /startup/startup.d/setup-tomcat* $WDBUILDER/startup/startup.d && \
     cp -R $CATALINA_HOME $WDBUILDER/usr/share
 
 #

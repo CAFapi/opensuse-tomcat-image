@@ -106,7 +106,7 @@
                             <name>${dockerCafImagePrefix}opensuse-tomcat${dockerProjectVersion}</name>
                             <build>
                                 <dockerFileDir>.</dockerFileDir>
-                                <assembly>
+                                 <assembly>
                                     <basedir>/</basedir>
                                     <inline>
                                         <dependencySets>
@@ -122,6 +122,7 @@
                                     <http_proxy>${env.HTTP_PROXY}</http_proxy>
                                     <https_proxy>${env.HTTPS_PROXY}</https_proxy>
                                     <no_proxy>${env.NO_PROXY}</no_proxy>
+
                                     <!-- Pass in opensuse-tomcat-juli image as param -->
                                     <JULI_IMAGE>${dockerCafImagePrefix}opensuse-tomcat-juli${dockerProjectVersion}</JULI_IMAGE>
                                 </args>

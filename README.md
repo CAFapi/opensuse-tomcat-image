@@ -1,20 +1,12 @@
 # openSUSE with Java and Tomcat image
 
-This project consists of 2 separate images which build on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) 
-to build two pre-configured Tomcat.
+This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) to build two pre-configured
+Tomcat Docker images that use two logging frameworks.  One of the images uses the Logback logging framework and the other that uses
+Tomcat JULI logging.
 
-One that uses CAF Logging framework and the other that relies on Tomcat Juli logging.
+They can be used as base images for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
 
-Each one can be used as a base image for hosting web projects which use Java technologies such as Java Servlets or JavaServer Pages.
-
-Here is an example Dockerfile which uses the image with Tomcat Juli logging as a base:
-
-    FROM cafapi/opensuse-tomcat-juli:latest
-
-    COPY demowebapp/ $CATALINA_HOME/webapps/demowebapp/
-    COPY demowebapp-admin/ $CATALINA_HOME/adminapps/ROOT/
-
-Here is an example Dockerfile which uses the image with CAF Logging as a base:
+Here is an example Dockerfile which uses one of the images as a base:
 
     FROM cafapi/opensuse-tomcat:latest
 

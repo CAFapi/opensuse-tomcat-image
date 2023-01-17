@@ -53,7 +53,7 @@
     setup-tomcat-ssl-cert.sh TLS section end </xsl:comment><xsl:text>
     </xsl:text>
     </xsl:template>
-    
+
     <!-- Override the specified access logging element -->
     <xsl:template match="/Server/Service[@name='Catalina']/Engine[@name='Catalina']/Host[@name='localhost']/Valve[@className='org.apache.catalina.valves.AccessLogValve']">
         <xsl:copy>
@@ -63,9 +63,7 @@
             <xsl:attribute name="directory">/dev</xsl:attribute>
             <xsl:attribute name="prefix">stderr</xsl:attribute>
             <xsl:attribute name="rotatable">false</xsl:attribute>
-            <xsl:attribute name="pattern">
-                <xsl:value-of select="@pattern" />
-            </xsl:attribute>
+            <xsl:attribute name="pattern"><xsl:value-of select="@pattern" /></xsl:attribute>
             <xsl:attribute name="encoding">UTF-8</xsl:attribute>
             <xsl:attribute name="buffered">false</xsl:attribute>
         </xsl:copy>

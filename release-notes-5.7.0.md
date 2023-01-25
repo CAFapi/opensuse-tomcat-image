@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -7,3 +5,4 @@ ${version-number}
 - US590035: An additional image that uses Tomcat JULI logging has been added.
 
 #### Known Issues
+- None

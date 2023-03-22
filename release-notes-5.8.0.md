@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -8,3 +6,4 @@ ${version-number}
 This includes fixes for [CVE-2023-24998](https://nvd.nist.gov/vuln/detail/CVE-2023-24998).
 
 #### Known Issues
+- None

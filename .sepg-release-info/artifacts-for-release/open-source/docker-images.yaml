@@ -1,0 +1,6 @@
+- dockerRepositoryId: cafapi/prereleases
+  imageName: opensuse-tomcat
+  tag: "5.9.2-893"
+- dockerRepositoryId: cafapi/prereleases
+  imageName: opensuse-tomcat-juli
+  tag: "5.9.2-893"

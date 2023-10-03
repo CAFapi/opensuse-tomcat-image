@@ -99,7 +99,7 @@
                                 <artifactItem>
                                     <groupId>com.github.tomcat-slf4j-logback</groupId>
                                     <artifactId>tomcat9-slf4j-logback</artifactId>
-                                    <version>9.0.76</version>
+                                    <version>${tomcatVersion}</version>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/tomcat9-slfj4-logback</outputDirectory>
                                 </artifactItem>

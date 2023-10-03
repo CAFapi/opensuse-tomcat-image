@@ -30,11 +30,11 @@ ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
 # Extract Tomcat and remove unwanted web applications
-COPY apache-tomcat-9.0.73.tar.gz .
+COPY apache-tomcat-9.0.76.tar.gz .
 RUN mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.73.tar.gz && \
-    mv apache-tomcat-9.0.73 $TOMCAT_DIR_NAME && \
+    tar xzf /wd/apache-tomcat-9.0.76.tar.gz && \
+    mv apache-tomcat-9.0.76 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 

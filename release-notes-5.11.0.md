@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -7,3 +5,4 @@ ${version-number}
 - US788018: Tomcat updated to version [9.0.76](https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.76/README.html).
 
 #### Known Issues
+- None

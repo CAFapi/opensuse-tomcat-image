@@ -29,9 +29,11 @@ ENV TOMCAT_PARENT_DIR=/wd/root/usr/share \
 ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
-# Extract Tomcat and remove unwanted web applications
-ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz .
-RUN mkdir -p $TOMCAT_PARENT_DIR && \
+# Download, extract Tomcat and remove unwanted web applications
+RUN curl -fsSL -o /wd/apache-tomcat-9.0.83.tar.gz https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz && \
+    echo 3f022ec8552bce1b72eb85d0778c93052ccb00226de3302544ec844ab93a9991e19c2db56ed06c18f03e5d75f34a46cedac46ae83bdd225518a55c62fc69ea04 \
+    /wd/apache-tomcat-9.0.83.tar.gz | sha512sum -c - && \
+    mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
     tar xzf /wd/apache-tomcat-9.0.83.tar.gz && \
     mv apache-tomcat-9.0.83 $TOMCAT_DIR_NAME && \

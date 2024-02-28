@@ -62,7 +62,7 @@ RUN mkdir -p $WDBUILDER/usr/share && \
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-jre8:3.10.0-SNAPSHOT
+FROM ${DOCKER_HUB_PUBLIC}/cafapi/prereleases:opensuse-jre8-3.10.0-SNAPSHOT
 
 RUN zypper -n refresh && \
     zypper -n update && \

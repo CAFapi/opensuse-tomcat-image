@@ -1,5 +1,3 @@
-!not-ready-for-release!
-
 #### Version Number
 ${version-number}
 
@@ -9,3 +7,4 @@ ${version-number}
   - However the `gosu` command is still supported by a symlink to `su-exec`.
 
 #### Known Issues
+- None

@@ -2,10 +2,7 @@
 ${version-number}
 
 #### New Features
-- None
-
-#### Patch Fixes Included
-- This release includes OS package updates only.
+- US910020: Tomcat updated to [9.0.87](https://tomcat.apache.org/download-90.cgi#9.0.87)
 
 #### Known Issues
 - None

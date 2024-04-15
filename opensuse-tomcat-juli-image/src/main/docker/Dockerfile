@@ -30,13 +30,13 @@ ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
 # Download, extract Tomcat and remove unwanted web applications
-RUN curl -fsSL -o /wd/apache-tomcat-9.0.83.tar.gz https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz && \
-    echo 3f022ec8552bce1b72eb85d0778c93052ccb00226de3302544ec844ab93a9991e19c2db56ed06c18f03e5d75f34a46cedac46ae83bdd225518a55c62fc69ea04 \
-        /wd/apache-tomcat-9.0.83.tar.gz | sha512sum -c - && \
+RUN curl -fsSL -o /wd/apache-tomcat-9.0.87.tar.gz https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.87/bin/apache-tomcat-9.0.87.tar.gz && \
+    echo 71a64fe805aab89ef4798571d860a3c9a4f751f808921559a9249305abb205836de33ab89bb33b625a77f799f193d6bffbe94aadf293866df756d708f5bfb933 \
+        /wd/apache-tomcat-9.0.87.tar.gz | sha512sum -c - && \
     mkdir -p $TOMCAT_PARENT_DIR && \
     cd $TOMCAT_PARENT_DIR && \
-    tar xzf /wd/apache-tomcat-9.0.83.tar.gz && \
-    mv apache-tomcat-9.0.83 $TOMCAT_DIR_NAME && \
+    tar xzf /wd/apache-tomcat-9.0.87.tar.gz && \
+    mv apache-tomcat-9.0.87 $TOMCAT_DIR_NAME && \
     cd $TOMCAT_ROOT_DIR/webapps && \
     rm -rf docs/ examples/ host-manager/ manager/
 

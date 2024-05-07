@@ -14,13 +14,10 @@
 # limitations under the License.
 #
 
-# Docker registry
-ARG DOCKER_HUB_PUBLIC=docker.io
-
 #
 # Preliminary image that downloads Tomcat and makes some modifications
 #
-FROM ${DOCKER_HUB_PUBLIC}/opensuse/leap:latest AS builder
+FROM ${projectDockerRegistry}/opensuse/leap AS builder
 RUN zypper -n install gzip tar xsltproc
 WORKDIR /wd
 
@@ -57,7 +54,7 @@ RUN chmod +x root/startup/startup.d/*
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:3
+FROM ${projectDockerRegistry}/cafapi/opensuse-jre8
 
 RUN zypper -n refresh && \
     zypper -n update && \

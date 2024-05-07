@@ -152,6 +152,25 @@
         </pluginManagement>
         <plugins>
             <plugin>
+                <groupId>com.github.cafapi.plugins.docker.versions</groupId>
+                <artifactId>docker-versions-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <imageManagement>
+                        <image>
+                            <repository>${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8</repository>
+                            <tag>3.10.1</tag>
+                            <digest>sha256:a7d1d224add79b085abc3e3f815b3ffe7b3eca175a0ea81a41295b720387dd44</digest>
+                        </image>
+                        <image>
+                            <repository>${DOCKER_HUB_PUBLIC}/opensuse/leap</repository>
+                            <tag>15.5</tag>
+                            <digest>sha256:165b2a35380bf408b0939c4198e5b013e9a2db5ccd173fcb82429204b8b2e61a</digest>
+                        </image>
+                    </imageManagement>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>

@@ -159,8 +159,8 @@
                     <imageManagement>
                         <image>
                             <repository>${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8</repository>
-                            <tag>3.10.1</tag>
-                            <digest>sha256:a7d1d224add79b085abc3e3f815b3ffe7b3eca175a0ea81a41295b720387dd44</digest>
+                            <tag>4.0.0</tag>
+                            <digest>sha256:52dd8f374d93e3d6fcb32f3a9863c2af16ecd06d0952307e5bf1c7b5530c00d3</digest>
                         </image>
                         <image>
                             <repository>${DOCKER_HUB_PUBLIC}/opensuse/leap</repository>

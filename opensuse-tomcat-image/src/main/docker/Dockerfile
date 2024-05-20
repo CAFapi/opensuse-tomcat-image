@@ -14,9 +14,6 @@
 # limitations under the License.
 #
 
-# Docker registry
-ARG DOCKER_HUB_PUBLIC=docker.io
-
 #
 # Preliminary image, makes some modifications to the JULI image
 #
@@ -62,7 +59,7 @@ RUN mkdir -p $WDBUILDER/usr/share && \
 #
 # The actual image definition
 #
-FROM ${DOCKER_HUB_PUBLIC}/cafapi/opensuse-jre8:4
+FROM ${projectDockerRegistry}/cafapi/opensuse-jre8
 
 RUN zypper -n refresh && \
     zypper -n update && \

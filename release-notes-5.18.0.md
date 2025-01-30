@@ -1,17 +1,8 @@
-!not-ready-for-release!
-
-## Version Number
-
+#### Version Number
 ${version-number}
 
-## New Features
+#### New Features
+- Update to Tomcat 9.0.98
 
-- None
-
-## Patch Fixes Included
-
-- Update Tomcat to 9.0.98
-
-## Known Issues
-
+#### Known Issues
 - None

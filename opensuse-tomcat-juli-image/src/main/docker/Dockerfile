@@ -27,7 +27,7 @@ ENV TOMCAT_ROOT_DIR $TOMCAT_PARENT_DIR/$TOMCAT_DIR_NAME
 ENV TOMCAT_CONF_DIR $TOMCAT_ROOT_DIR/conf
 
 # Download, extract Tomcat and remove unwanted web applications
-RUN curl --noproxy '*' -fsSL -o /wd/apache-tomcat-9.0.98.tar.gz https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz && \
+RUN curl -fsSL -o /wd/apache-tomcat-9.0.98.tar.gz https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.98/bin/apache-tomcat-9.0.98.tar.gz && \
     echo 07d87286e8ee84bb291069c596cf36233e56a14e3ecb6d65eea0fa7c7042ce5e75f5db31f210b96b6b25b80b34e626dd26c5a6ed5c052384a8587d62658b5e16 \
         /wd/apache-tomcat-9.0.98.tar.gz | sha512sum -c - && \
     mkdir -p $TOMCAT_PARENT_DIR && \

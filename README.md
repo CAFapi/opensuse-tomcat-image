@@ -1,6 +1,6 @@
 # openSUSE with Java and Tomcat image
 
-This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-java8-images) to build two pre-configured
+This project builds on the openSUSE Java 8 image [here](https://github.com/CAFapi/opensuse-base-images/tree/main/opensuse-java21-images) to build two pre-configured
 Tomcat Docker images that use two logging frameworks.  One of the images uses the Logback logging framework and the other that uses
 Tomcat JULI logging.
 

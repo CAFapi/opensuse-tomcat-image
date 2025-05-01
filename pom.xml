@@ -159,8 +159,8 @@
                     <imageManagement>
                         <image>
                             <repository>${dockerHubPublic}/cafapi/opensuse-jre8</repository>
-                            <tag>4.2.6</tag>
-                            <digest>sha256:56655bcf902d427eef043e195af3b856af1c6aea22fb6191f0fcc2f9a0561fb1</digest>
+                            <tag>4.2.7</tag>
+                            <digest>sha256:232c91fb59b223d288f455190f6e176abbd98836d76010985fc24ce272c72261</digest>
                         </image>
                         <image>
                             <repository>${dockerHubPublic}/opensuse/leap</repository>
